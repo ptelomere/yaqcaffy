@@ -1,0 +1,7 @@
+setGeneric("avns",              function(object)     standardGeneric("avns"))
+setGeneric("moreSpikeInProbes", function(object)     standardGeneric("moreSpikeInProbes"))
+setGeneric("gcosProbes",        function(object)     standardGeneric("gcosProbes"))
+setGeneric("bioCalls",          function(object)     standardGeneric("bioCalls"))
+setGeneric("arrays",            function(object)     standardGeneric("arrays"))
+setGeneric("isLog",             function(object)     standardGeneric("isLog"))
+setGeneric("yaqc",              function(object,...) standardGeneric("yaqc"))

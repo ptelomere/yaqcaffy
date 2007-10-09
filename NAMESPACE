@@ -1,0 +1,31 @@
+import(methods)
+import(simpleaffy)
+
+importFrom(geneplotter, smoothScatter)
+
+export(reprodPlot)
+
+exportClasses("YAQCStats")
+
+exportMethods(
+              "avns",
+              "bioCalls",
+              "gcosProbes",
+              "moreSpikeInProbes",
+              "isLog",
+              "arrays",
+              "plot",
+              "show",
+              "yaqc",
+              "merge"
+              )
+
+export(
+       getSpikeProbes,
+       getBioProbes,
+       getRatioProbes,
+       getQCRatios,
+       getAllInt,
+       getOutliers,
+       yaqc.plot
+       )

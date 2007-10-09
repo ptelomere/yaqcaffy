@@ -1,0 +1,61 @@
+-TODO------------------------------------------------------------
+-----------------------------------------------------------------
+- add possibility to set groups for qc analysis
+- add more stats than correlation values (for example % genes with 
+  FC<0.5, FC>2...) in reprodPlot
+- add an 'Affymetrix Report File input' argument to yaqc
+- check that morespikes and alpha/qc.probes have the same chips
+(- more report-like reprodPlot graph)
+- add a parameter 'list of .CEL files' to be removed/(re)included
+- everything works well with current version of simpleaffy (2.10.3),
+  put on Windows (simpleaffy version 2.10.11), an error about error
+  "data set 'moresipkes' not found in: data(morespikes, envir=.yaqcEnv)"
+  appears; will probably appear once newer version is commited for 
+  linux (src package)
+
+-DONE------------------------------------------------------------
+-----------------------------------------------------------------
+13sep07 new svn repositary
+13sep07 modifications after Marc Carlon's inital review
+06jun07 changed reprodPlot output from pdf to png format in the 
+        vignette because de space requirements.
+15mai07 checked building checking for time requirements: to get 
+        openVignette() working, the vignette is now included (not only
+        the pdf file) put the reprodPlot.pdf figure is added as an 
+        additional file (reprodPlot() is not evaluated by Sweave),
+        which brings the build/check process below 5 minutes.
+        But the size is now of 3.7M for the package and 8.7 for the 
+        source directory.
+15mai07 updated vignette
+15mai07 fixed QC ratio for logged input
+14mai07 fixed getOutliers() for YAQStats built from ExpressionSet
+14mai07 renamed getExtremes() in getOutliers()
+14mai07 fixing documentation
+11mai07 added fc diagonals on the reproducibility scatter plots
+10mai07 added CV calculation for qc metrics
+10mai07 moved refX.RData and related documentation to MAQCsubsetAFX
+        ExperimentData package
+23apr07 added getExtremes function
+22apr07 imporved reprodPlot: sample names appear on the diagonal,
+        axis are present, removed lost space between plots
+21apr07 now qc plots work whether an AffyBactch or ExpressionSet
+        are given as input
+21apr07 combined yaqcplot1,2,3 into one graph
+21apr07 possible to use exprSet object instead of AffyBatch objects 
+        to use justRMA for preprocessing of bigger datasets 
+21apr07 added a logged parameter when providing exprSet
+21apr07 added sample names on the diagonal in repordplot()
+21apr07 changed geneNames() which is depracated with featureNames
+        in reprod.R
+21apr07 fixed reference description in vignette and documentation
+20apr07 update ref(A|B|C|D)
+19apr07 Namespace issues fixed with help of Seth Falcon and addition
+	of a NAMESPACE file into simpleaffy.
+12apr07 use smoothscatter for reprodPlot
+11apr07 Start to use local subversion to track changes
+11mar07 ERROR: Error in apply(MAQCStatsObject@bio.calls,2,function(x)...
+        Cannot get a slot ("bio.calls") from an object of type closure
+        Observed when calling maqc.plot(q,2): FIXED
+09mar07 print outliers an maqc.plot(d,1) graphs
+09mar07 check that different tgt can be given as input
+-----------------------------------------------------------------
