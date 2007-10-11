@@ -47,7 +47,7 @@
   library(MAQCsubsetAFX)
   data(refA)
   ## create the yaqc object
-  qobj <- yaqc(refA)
+  qobj <- yaqc(refA[,3:5])
   ## get outliers for the scale factor
   getOutliers(qobj,"sfs")
 }
