@@ -83,7 +83,7 @@ The function \Rfunction{yaqc} computes the following values that are used for qu
 The newly created object can then be visualized as a \Robject{data frame} with the \Rfunction{show()} function.
 
 <<>>=
-qA<-yaqc(refA)
+qA<-yaqc(refA[,3:5])
 show(qA)
 @
 
@@ -117,7 +117,7 @@ The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob,
 
 In addition, the coefficient of variation is calculated for each qc metric and indicated on the qc plot.
 
-In is also possible to combine two \Robject{YAQCStats} object into one with the \Rfunction{merge()} function. To illustration this function, we will use the \Rfunction{arrays()} function that outputs the arrays names of the \Robject{YAQCStats} provided as parameter.
+It is also possible to combine two \Robject{YAQCStats} object into one with the \Rfunction{merge()} function. To illustration this function, we will use the \Rfunction{arrays()} function that outputs the arrays names of the \Robject{YAQCStats} provided as parameter.
 
 <<>>=
 data(refB)
@@ -134,9 +134,9 @@ arrays(qAB)
 To illustrate this section, we will compare the first array of the RNA B reference dataset (\Robject{AFX\_1\_B1.CEL}) to the RNA A reference dataset\footnote{Note that the reproducibility statistics will \textit{de facto} be low, as the conditions to be compared are different.}. 
 
 <<>>=
-data(refB)     ## load your .CEL file(s) from the current dir 
-d<-refB[,1]    ## analyze the reproducibility against ref A
-sampleNames(d) ## show the name of the first array of refB
+data(refB)
+d<-refB[,1]
+sampleNames(d)
 @
 
 We will compare this CEL file to the \Robject{refA} dataset using the \Rfunction{reprodPlot} function. The name of the \Robject{AffyBatch} object to be tested is given as first argument and the reference data is specified as a character provided as second parameter (respectively \texttt{"refA"}, \texttt{"refB"}, \texttt{"refC"} or \texttt{"refD"}). The reference dataset is automatically loaded and merged with the user's \Robject{AffyBatch} object, normalized and results are plotted. The intensities used for the statistics are normalized using the RMA algorithm implemented in the \Rpackage{affy} package (\texttt{normalize="rma"}, default). It is also possible the use GCRMA (as implemented in the \Rpackage{gcrma} package, \texttt{normalize="gcrma"}), MAS5 (as implemented in \Rpackage{affy}, \texttt{normalize="mas5"})) or no normalization (\texttt{normalize="none"}).
@@ -148,11 +148,11 @@ The \Rfunction{reprodPlot} function draws a 6 by 6 matrix showing scatterplots (
 @
 
 
-The figure below is an example of the \Rfunction{reprodPlot} for 2 of samples \footnote{This \texttt{test} plot is used instead of the 6 by 6 plot to reduce time and size requirements to build vignette.}. 
+The figure below is an example of the \Rfunction{reprodPlot} for 2 unnormalized samples \footnote{This \texttt{test} plot is used instead of the 6 by 6 plot to reduce time and size requirements to build vignette.}. 
 
 \begin{center}
 <<fig=TRUE,echo=TRUE>>=
-reprodPlot(d,"test",normalize="rma")
+reprodPlot(d,"test",normalize="none")
 @
 \end{center}
 
