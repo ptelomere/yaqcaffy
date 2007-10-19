@@ -148,7 +148,7 @@ The \Rfunction{reprodPlot} function draws a 6 by 6 matrix showing scatterplots (
 @
 
 
-The figure below is an example of the \Rfunction{reprodPlot} for 2 unnormalized samples \footnote{This \texttt{test} plot is used instead of the 6 by 6 plot to reduce time and size requirements to build vignette.}. 
+The figure below is an example of the \Rfunction{reprodPlot} for 2 unnormalized samples \footnote{This \texttt{test} plot is used instead of the 6 by 6 plot to reduce time and size requirements to build the vignette.}. 
 
 \begin{center}
 <<fig=TRUE,echo=TRUE>>=
