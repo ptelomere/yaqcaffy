@@ -1,5 +1,6 @@
 -TODO------------------------------------------------------------
 -----------------------------------------------------------------
+- reduce package check time
 - add possibility to set groups for qc analysis
 - add more stats than correlation values (for example % genes with 
   FC<0.5, FC>2...) in reprodPlot
@@ -15,6 +16,9 @@
 
 -DONE------------------------------------------------------------
 -----------------------------------------------------------------
+19oct07 version 0.99.1: changed two examples in the vignette (+ 1 typo)
+        to reduce build/check time
+10oct07 version 0.99.0 in BioC 2.2
 13sep07 new svn repositary
 13sep07 modifications after Marc Carlon's inital review
 06jun07 changed reprodPlot output from pdf to png format in the 
