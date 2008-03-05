@@ -136,7 +136,7 @@ yaqc.affy<-function(object,      ## affybatch or expressionSet object
                     tau=0.015,
                     logged=FALSE ## is it in log2
                     ) {
-    ## If object is of class AffyBatch, then an exprSet is calculated
+    ## If object is of class AffyBatch, then an ExpressionSet is calculated
     ## using the MAS5 algorithm (with simpleaffy's justMAS function).
     ## In that case, the scale factors (sfs) and target values (tgt)
     ## are set in the YAQCstats object and the final probe set intensities
