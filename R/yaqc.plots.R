@@ -21,7 +21,7 @@
     i<-1
     bx<-boxplot(data,main=title,col=color,cex=.5)
     if (outliers) {
-        for(i in 1:length(bx)) { 
+        for(i in 1:length(bx$out)) { 
             text(1,bx$out[i],names(bx$out[i]),cex=0.7,pos=1) 
         }
     }
