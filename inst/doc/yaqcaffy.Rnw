@@ -5,7 +5,7 @@
 %documentclass[12pt, a4paper]{article}
 \documentclass[12pt]{article}
 
-\usepackage{amsmath,pstricks,epsfig}
+\usepackage{amsmath,epsfig}
 \usepackage{hyperref}
 \usepackage[authoryear,round]{natbib}
 
