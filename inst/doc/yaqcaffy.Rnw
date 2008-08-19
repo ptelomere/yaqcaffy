@@ -61,13 +61,17 @@ These datasets are freely available and allow researchers, among other things, t
 
 \section{Generating an \Robject{YAQCStats} objects }\label{sec:qcdata} 
 
-As an example, we will use the MAQC \Robject{refA} dataset (see section \ref{sec:maqc}) from the \Rpackage{MAQCsubsetAFX} package.
-
+% As an example, we will use the MAQC \Robject{refA} dataset (see section \ref{sec:maqc}) from the \Rpackage{MAQCsubsetAFX} package.
+As an example, we will use \Rpackage{affydata}'s \Robject{Dilution} dataset. We will modify the raw probe intensities of the first sample to illustrate some of \Rpackage{yaqcaffy}'s functions below.
 
 <<>>=
 library("yaqcaffy")
-library("MAQCsubsetAFX")
-data(refA)
+library("affydata")
+data(Dilution)
+## probe intensities modification
+tmp <- exprs(Dilution)
+tmp[,1] <- tmp[,1]*2
+exprs(Dilution) <- tmp
 @
 
 The next step is the creation of the \Robject{YAQCStats} object that will hold the data that will subsequently be used to assess the quality of the arrays (see section \ref{sec:qcanalysis}). The \Robject{YAQCStats} object is a subclass of the \Robject{QCStats} object, defined in the \Rpackage{simpleaffy} package.
@@ -83,8 +87,8 @@ The function \Rfunction{yaqc} computes the following values that are used for qu
 The newly created object can then be visualized as a \Robject{data frame} with the \Rfunction{show()} function.
 
 <<>>=
-qA<-yaqc(refA[,3:5])
-show(qA)
+yqc <-yaqc(Dilution)
+show(yqc)
 @
 
 In the above examples, the data given as input is of class \Robject{AffyBatch} object. An \Robject{YAQCStats} object can also be created by providing an \Robject{ExpressionSet}, in which case some of the qc metrics cannot be computed: only the intensity values for the bioB, bioC, bioD and dap, lys, phe and thr probes and GAPDH and $\beta$-actin probes are used.
@@ -102,7 +106,7 @@ The mean (longdashed line), upper and lower 2 standard deviations (dotted lines)
 
 \begin{center}
 <<fig=TRUE,echo=TRUE,width=10,height=6>>=
-plot(qA)
+plot(yqc)
 @
 \end{center}
 
@@ -110,7 +114,7 @@ plot(qA)
 The outliers (i.e. the data points the lie outside the mean +/- 2 stdev) can be queried and listed for each qc metrics using the \Rfunction{getOutliers()} function. The arguments are the \Robject{YAQCStats} object and a string describing the metrics that should be queried. In the above example, we can see that the scale factors of the fourth samples (counting from the botton) is out of range and not even present on the dotchart. We can retrieve the name of the sample and its scale factor value by typing:
 
 <<>>=
-getOutliers(qA,"sfs")
+getOutliers(yqc,"sfs")
 @
 
 The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of apperance on the qc plot).
@@ -120,12 +124,11 @@ In addition, the coefficient of variation is calculated for each qc metric and i
 It is also possible to combine two \Robject{YAQCStats} object into one with the \Rfunction{merge()} function. To illustration this function, we will use the \Rfunction{arrays()} function that outputs the arrays names of the \Robject{YAQCStats} provided as parameter.
 
 <<>>=
-data(refB)
-qB<-yaqc(refB[,1])
-arrays(qA) 
-arrays(qB)
-qAB<-merge(qA,qB)
-arrays(qAB)
+yqc2<-yaqc(Dilution[,2:3])
+arrays(yqc) 
+arrays(yqc2)
+yqc3<-merge(yqc,yqc2)
+arrays(yqc3)
 @
 
 
@@ -134,6 +137,7 @@ arrays(qAB)
 To illustrate this section, we will compare the first array of the RNA B reference dataset (\Robject{AFX\_1\_B1.CEL}) to the RNA A reference dataset\footnote{Note that the reproducibility statistics will \textit{de facto} be low, as the conditions to be compared are different.}. 
 
 <<>>=
+library(MAQCsubsetAFX)
 data(refB)
 d<-refB[,1]
 sampleNames(d)
