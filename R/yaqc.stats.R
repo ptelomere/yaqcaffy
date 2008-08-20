@@ -272,7 +272,7 @@ yaqc.show <- function(object) {
 
 
 merge.yaqc <- function(o1,o2) {
-  if ((o1@log == o2@log) && (o1@target==o2@target) && (o1@arraytype==o2@arraytype) ) {
+  if ((o1@log==o2@log) && (o1@target==o2@target) && (o1@arraytype==o2@arraytype) ) {
     meanns <- c(o1@average.noise,o2@average.noise)
     spike.vals <- matrix(,dim(o1@morespikes)[1],sum(dim(o1@morespikes)[2],dim(o2@morespikes)[2]))
     rownames(spike.vals) <- rownames(o1@morespikes)
@@ -292,9 +292,9 @@ merge.yaqc <- function(o1,o2) {
     sfs <- c(o1@scale.factors,o2@scale.factors)
     ppv <- c(o1@percent.present,o2@percent.present)
     meanbg <- c(o1@average.background,o2@average.background)
-    tgt <- c(o1@target,o2@target)
+    tgt <- o1@target
     log.vals <- o1@log
-    atype <- c(o1@arraytype,o2@arraytype)
+    atype <- o1@arraytype
 
     return( new("YAQCStats",
                 scale.factors=sfs,
