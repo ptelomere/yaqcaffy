@@ -6,6 +6,16 @@ setMethod("bioCalls",         "YAQCStats",function(object) object@bio.calls)
 setMethod("arrays",           "YAQCStats",function(object) names(object@average.noise))
 setMethod("isLog",            "YAQCStats",function(object) object@log)
 
+## This accessor method overloads simpleaffy's sfs().
+## Here, we add the names to the numeric vector
+setMethod("sfs","YAQCStats",
+        function(object) {
+        foo <- object@scale.factors
+        names(foo) <- arrays(object)
+        return(foo)
+        })
+
+
 ## Functions similar to the ones implemented in the quality control 
 ## related file (qc.stats.R) of the simpleaffy package, but modifed 
 ## and renamed for the YAQCStats Object
