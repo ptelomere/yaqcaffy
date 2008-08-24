@@ -45,7 +45,7 @@
   data<-sfs(YAQCStatsObject)
   min<-mean(data)/2
   max<-mean(data)*1.5
-  dotchart(data,xlim=c(min*0.1,max*1.1),main="scale\nfactors")
+  dotchart(data,xlim=c(min*0.1,max*1.1),main="scale\nfactors",labels="")
   abline(v=max,col="red")
   abline(v=min,col="red")
   mtext(paste("CV:",round(sd(data)/mean(data),2)),3,cex=.5)
