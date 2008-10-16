@@ -73,9 +73,9 @@ getQcdefData <- function(object) {
 getQCRatios <- function(YAQCStatsObject) {
    vals <- YAQCStatsObject@gcos.probes
    unique.names <- rownames(vals)
-   unique.names <- sub("[_-]5.?_?.?_at$","",unique.names,perl=T)
-   unique.names <- sub("[_-]3.?_?.?_at$","",unique.names,perl=T)
-   unique.names <- sub("[_-]M.?_?.?_at$","",unique.names,perl=T)
+   unique.names <- sub("[_-]?5_?.?_at$","",unique.names,perl=T)
+   unique.names <- sub("[_-]?3_?.?_at$","",unique.names,perl=T)
+   unique.names <- sub("[_-]?M_?.?_at$","",unique.names,perl=T)
    unique.names <- unique(unique.names)
    p3 <- .namegrep3(unique.names,rownames(vals))
    p5 <- .namegrep5(unique.names,rownames(vals))
@@ -96,13 +96,15 @@ getQCRatios <- function(YAQCStatsObject) {
 ## version of simpleaffy
 .namegrep3 <- function(stems,all) {
   sapply(stems,function(stem) {
-    grep(paste(stem,"[-_wC]3.?_?.?_at$",sep=""),all,value=T)
+    ## grep(paste(stem,"[-_wC]3.?_?.?_at$",sep=""),all,value=T)
+    grep(paste(stem,"[-_wC]?3_?.?_at$",sep=""),all,value=T)
   });
 }
 
 .namegrep5 <- function(stems,all) {
   sapply(stems,function(stem) {
-    grep(paste(stem,"[-_wC]5.?_?.?_at$",sep=""),all,value=T)
+    ## grep(paste(stem,"[-_wC]5.?_?.?_at$",sep=""),all,value=T)
+    grep(paste(stem,"[-_wC]?5_?.?_at$",sep=""),all,value=T)
   });
 }
 
