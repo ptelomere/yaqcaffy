@@ -40,7 +40,7 @@
      \item{Phe spike control}{"phe"}
      \item{Lys spike control}{"lys"}
      }
-
+}
 
 \examples{
   ## load data
