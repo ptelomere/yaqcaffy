@@ -26,7 +26,7 @@
 \details{
    The slot strings that can be used are:
     \describe{
-     \itemD{scale factor}{"sfs"}
+     \item{scale factor}{"sfs"}
      \item{average background}{ "avbg"}
      \item{average noise}{"avns"}
      \item{percentage present}{"pp"}
