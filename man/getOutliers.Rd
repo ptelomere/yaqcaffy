@@ -25,31 +25,31 @@
 
 \details{
    The slot strings that can be used are:
-    \begin{description}
-     \item[scale factor] "sfs"
-     \item[average background] "avbg"
-     \item[average noise] "avns"
-     \item[percentage present] "pp"
-     \item[$\beta$-actin 3'/5' ratio] "actin"
-     \item[GAPDH 3'/5' ratio] "gapdh"
-     \item[internal bioB control] "biob"
-     \item[internal bioC control] "bioc"
-     \item[internal bioD control] "biod"
-     \item[Dap spike control] "dap"
-     \item[Thr spike control] "thr"
-     \item[Phe spike control] "phe"
-     \item[Lys spike control] "lys"
-     \end{description}
-}
+    \describe{
+     \itemD{scale factor}{"sfs"}
+     \item{average background}{ "avbg"}
+     \item{average noise}{"avns"}
+     \item{percentage present}{"pp"}
+     \item{\eqn{\beta}-actin 3'/5' ratio}{"actin"}
+     \item{GAPDH 3'/5' ratio}{"gapdh"}
+     \item{internal bioB control}{"biob"}
+     \item{internal bioC control}{"bioc"}
+     \item{internal bioD control}{"biod"}
+     \item{Dap spike control}{"dap"}
+     \item{Thr spike control}{"thr"}
+     \item{Phe spike control}{"phe"}
+     \item{Lys spike control}{"lys"}
+     }
+
 
 \examples{
   ## load data
   library(MAQCsubsetAFX)
   data(refA)
   ## create the yaqc object
-  qobj <- yaqc(refA[,3:5])
+  qobj <- yaqc(refA[, 3:5])
   ## get outliers for the scale factor
-  getOutliers(qobj,"sfs")
+  getOutliers(qobj, "sfs")
 }
 
 \author{ Laurent Gatto }

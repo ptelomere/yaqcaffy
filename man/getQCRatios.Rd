@@ -2,7 +2,7 @@
 \alias{getQCRatios}
 \title{Compute qc probe ratios using GCOS intensity values}
 \description{
-    This function computes the 3'/5' ratios of the GAPDh and $\beta$-actin
+    This function computes the 3'/5' ratios of the GAPDh and \eqn{\beta}-actin
     qc probes using the GCOS intensity values.
 }
 \usage{getQCRatios(YAQCStatsObject)}

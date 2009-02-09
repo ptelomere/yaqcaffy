@@ -17,7 +17,7 @@ This function takes a raw (unnormalised) \code{AffyBatch} object or
 and \code{ExpressionSet} object. In the first case, it computess GCOS intensity 
 values, MAS expression calls(see \code{call.exprs}) and other quality-related 
 metrics to generate an YAQCStats. If an \code{ExpressionSet} object is provided,
-only the $\beta$-actin, GAPDH  and internal control values are computed.
+only the \eqn{\beta}-actin, GAPDH  and internal control values are computed.
 }
 
 \usage{

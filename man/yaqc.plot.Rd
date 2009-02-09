@@ -9,7 +9,7 @@
 \description{
   Generates a visual summary of the various Affymetrix QC statistics.
 }
-\usage{yaqc.plot(YAQCStatsObject,...)}
+\usage{yaqc.plot(YAQCStatsObject, ...)}
 \arguments{
     \item{YAQCStatsObject}{an object of class \code{"YAQCStats"}.}
     \item{...}{other arguments.}
@@ -23,7 +23,7 @@
     lower limits are defined with vertical red lines.
     The other qc metircs are shown using dot plots. For the upper row box 
     plots (average background, average noise, percent present and 
-    $\beta$-actin and GAPDH ratios, the mean is represented by a dashed 
+    \eqn{\beta}-actin and GAPDH ratios, the mean is represented by a dashed 
     red line and the mean +/- 2 stdev by red dotted lines. For the lower box 
     plots, featuring the internal controls, grey boxes defines the mean 
     (middle segment) +/- 2 stdev.
@@ -39,7 +39,7 @@
   data(Dilution)
   ## create the yaqc object
   ## and plot it
-  qobj<-yaqc(Dilution)
+  qobj <- yaqc(Dilution)
   plot(qobj)
 }
 
