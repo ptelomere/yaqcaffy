@@ -12,7 +12,7 @@
 \usage{yaqc.summary(YAQCStatsObject,latex)}
 \arguments{
     \item{YAQCStatsObject}{an object of class \code{"YAQCStats"}.}
-    \item{latex}{logical}
+    \item{latex}{logical value. If 'TRUE', the data frame is returned as a latex table.}
 
 }
 \details{
@@ -21,6 +21,9 @@
   (bioB, bioC and bioD) and poly-A controls
   (dap, thr, phe and lys) are
   summerized in two rows.
+
+  If \code{latex} is set to 'TRUE', the data frame is returned as
+  a latex table (requires the \code{xtable} library).
   
   Note: not tested if the YAQCStatsObject has been generated with
   an Expression Set objects.
