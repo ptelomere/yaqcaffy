@@ -6,6 +6,46 @@ setMethod("bioCalls",         "YAQCStats",function(object) object@bio.calls)
 setMethod("arrays",           "YAQCStats",function(object) names(object@average.noise))
 setMethod("isLog",            "YAQCStats",function(object) object@log)
 
+
+setMethod("summary",c("YAQCStats"),
+          function(object,...) yaqc.summary(object,...)
+          )
+
+yaqc.summary <- function(YAQCStatsObject,latex=FALSE) {
+  if (latex) {
+    require("xtable") || stop("'xtable' library is required to generate a latex summary table.")
+  }
+  qcm <- c("sfs","avbg","avns","pp","actin","gapdh")
+  l <- vector("list",length(qcm))                   
+  bio <- c("biob","bioc","biod")
+  biol <- vector("list",3)
+  spk <- c("dap","phe","lys","thr")
+  spkl <- vector("list",4)
+  
+  for (i in 1:length(qcm)) {
+    if (!is.null(getOutliers(YAQCStatsObject,qcm[i]))) {
+      l[[i]] <- paste(names(getOutliers(YAQCStatsObject,qcm[i])),collapse=",")
+    }
+  }
+  for (i in 1:length(bio)) {
+    if (!is.null(getOutliers(YAQCStatsObject,bio[i])))
+      biol[[i]] <- paste(names(getOutliers(YAQCStatsObject,bio[i])),collapse=",")
+  }
+  for (i in 1:length(spk)) {
+    if (!is.null(getOutliers(YAQCStatsObject,spk[i])))
+      spkl[[i]] <- paste(names(getOutliers(YAQCStatsObject,spk[i])),collapse=",")
+  }
+  l <- sub(".present","",l)
+  df <- data.frame(rbind(as.matrix(l),paste(unlist(biol),collapse=" "),
+                         paste(unlist(spkl),collapse=" ")
+                         ))
+  colnames(df) <- "samples"
+  rownames(df) <- c(qcm,"bio","spikes")
+  if (latex) { return(xtable(df)) }
+  else { return(df) }
+}
+
+
 ## This accessor method overloads simpleaffy's sfs().
 ## Here, we add the names to the numeric vector
 setMethod("sfs","YAQCStats",
@@ -366,7 +406,7 @@ getOutliers <- function(YAQCStatsObject,slot) {
 }
 
 .removeOK <- function(data,ll,ul) {
-  res<-c();
+  res <- numeric()
   for ( i in 1:length(data) ) {
     if (data[i]<ll || ul<data[i]) res <- append(res,data[i])
   }

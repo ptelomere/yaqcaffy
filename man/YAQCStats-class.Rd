@@ -19,6 +19,7 @@
 \alias{arrays-methods}
 
 \alias{plot,YAQCStats,ANY-method}
+\alias{summary,YAQCStats,ANY-method}
 \alias{show,YAQCStats-method}
 \alias{merge,YAQCStats-method}
 \alias{arrays,YAQCStats-method}
@@ -53,6 +54,7 @@
     \item{bioCalls}{\code{signature(object = "YAQCStats")}: P/M/A calls for BioB, BioC and BioD spikes  }
     \item{arrays}{\code{signature(object = "YAQCStats")}: shows the array names composing the \code{YAQCStats} object }
     \item{plot}{\code{signature(object = "YAQCStats")}: visual representation of the qc metrics }
+    \item{summary}{\code{signature(object = "YAQCStats")}: data frame summary of the outliers }
     \item{show}{\code{signature(object = "YAQCStats")}: displays the content of the object as a data frame }
     \item{merge}{\code{signature(object = "YAQCStats")}: merges two compatible YAQCStats objects, i.e. that have the same values for the \code{log}, \code{target} and \code{arraytype} slots. }
     \item{arrays}{\code{signature(object = "YAQCStats")}: show the array names of an YAQCStats objects. }

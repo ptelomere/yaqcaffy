@@ -95,7 +95,7 @@ In the above examples, the data given as input is of class \Robject{AffyBatch} o
 
 \section{Quality control analysis}\label{sec:qcanalysis} 
 
-The quality metrics in the \Robject{YAQCStats} object can be plotted out to allow an easy and rapid overview, as shown in figure \ref{fig:yaqc}:
+The quality metrics in the \Robject{YAQCStats} object can be plotted out to allow an easy and rapid overview, as shown on figure \ref{fig:yaqc}:
 \begin{itemize}
 \item the scale factors for the different arrays are plotted with the upper and lower limits as a dotchart;
 \item boxplots for the average background and noise, the percentage of present calls and GAPDH and $\beta$-actin $\frac{3'}{5'}$ ratios.
@@ -104,11 +104,17 @@ The quality metrics in the \Robject{YAQCStats} object can be plotted out to allo
 
 The mean (longdashed line), upper and lower 2 standard deviations (dotted lines) are also plotted on the graphs. The upper and lower limits may however not appear when they are outside of the boxplot y-axis. For the internal probes, a grey rectangle represents the mean (middle segment) and the +/- 2 stdev range.
 
+
+
+\begin{figure}
 \begin{center}
-<<fig=TRUE,echo=TRUE,width=10,height=6>>=
+<<fig=TRUE, echo=TRUE, width=12, height=9>>=
 plot(yqc)
 @
+\caption{Graphical representation of the \Robject{YAQCStats} object.}
+\label{fig:yaqc}
 \end{center}
+\end{figure}
 
 
 The outliers (i.e. the data points the lie outside the mean +/- 2 stdev) can be queried and listed for each qc metrics using the \Rfunction{getOutliers()} function. The arguments are the \Robject{YAQCStats} object and a string describing the metrics that should be queried. In the above example, we can see that the scale factors of the fourth samples (counting from the botton) is out of range and not even present on the dotchart. We can retrieve the name of the sample and its scale factor value by typing:
@@ -117,9 +123,9 @@ The outliers (i.e. the data points the lie outside the mean +/- 2 stdev) can be 
 getOutliers(yqc,"sfs")
 @
 
-The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of apperance on the qc plot).
+The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of apperance on the qc plot). In addition, the coefficient of variation is calculated for each qc metric and indicated on the qc plot. The outliers can be summerized in a data frame calling the \Rfunction{summary()} function on a \Robject{YAQCStats} object.
 
-In addition, the coefficient of variation is calculated for each qc metric and indicated on the qc plot.
+\bigskip
 
 It is also possible to combine two \Robject{YAQCStats} object into one with the \Rfunction{merge()} function. To illustration this function, we will use the \Rfunction{arrays()} function that outputs the arrays names of the \Robject{YAQCStats} provided as parameter.
 
