@@ -9,11 +9,11 @@
 \description{
   Generates a visual summary of the various Affymetrix QC statistics.
 }
-\usage{yaqc.plot(YAQCStatsObject, ...)}
+\usage{yaqc.plot(YAQCStatsObject, which,...)}
 \arguments{
     \item{YAQCStatsObject}{an object of class \code{"YAQCStats"}.}
+    \item{which}{which quality metrics should be plotted (all by default).}
     \item{...}{other arguments.}
-
 }
 \details{
     The quality control metrics of the \code{YAQCStatsObject} are plotted 
@@ -27,6 +27,13 @@
     red line and the mean +/- 2 stdev by red dotted lines. For the lower box 
     plots, featuring the internal controls, grey boxes defines the mean 
     (middle segment) +/- 2 stdev.
+
+    Individual plots can also be generated with the \code{which}
+    argument: 'sfs' for the scale factor, 'avbg' and 'avns' for the
+    average background and noise, 'pp' for the percentage of present
+    calls, 'gapdh' and 'actin' for the GAPDH and \eqn{\beta}-actin
+    ratios, 'bio' for the hybridization controls and 'spikes' for the
+    retro-transciption spiked controls. 
 
     If the YAQCStatsObject has been generated with an Expression Set objects, 
     the scale factors, average noise and background and percent present can not

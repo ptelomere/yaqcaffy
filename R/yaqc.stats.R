@@ -61,7 +61,7 @@ setMethod("sfs","YAQCStats",
 ## and renamed for the YAQCStats Object
 
 getSpikeProbes <- function(object) {
-  cdfn<-cleancdfname(annotation(object))
+  cdfn<-cleancdfname(object@annotation)
   r <- get("morespikes",envir=.yaqcEnv)[cdfn,]
   return(r[!is.na(r)])
 }
@@ -99,7 +99,7 @@ getAlpha2 <- function(object) {
 getQcdefData <- function(object) {
   ## this funciton retrieves a list of information
   ## about the specific type of affyBatchObject
-  cdfn<-cleancdfname(annotation(object))
+  cdfn<-cleancdfname(object@annotation)
   fn <- paste(cdfn,"qcdef",sep=".")
   qcfile <- system.file("extdata",fn,package="simpleaffy")
   fl <- file(qcfile,"r")
@@ -175,8 +175,8 @@ getAllInt <- function(YAQCStatsObject,pattern) {
 ###############################################################################
 
 .gcos <- function(affyBatchObject,tgt=100) {
-    mas<-justMAS(affyBatchObject,tgt=tgt,scale=TRUE)
-    return(mas)
+  mas<-justMAS(affyBatchObject,tgt=tgt,scale=TRUE)
+  return(mas)
 }
 
 ###############################################################################
@@ -224,7 +224,7 @@ yaqc.affy.exprSet<-function(exprSetObject, logged) {
 }
 
 
-yaqc.affy.affybatch<-function(affyBatchObject,tgt,tau) {
+yaqc.affy.affybatch <- function(affyBatchObject,tgt,tau) {
     cdfname<-cleancdfname(cdfName(affyBatchObject))
     ## creating simpleaffy's .qcEnv
     setQCEnvironment(cdfname)

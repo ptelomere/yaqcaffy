@@ -44,7 +44,7 @@ The ploy-A controls \textbf{AFFX-r2-Bs-Dap}, \textbf{AFFX-r2-Bs-Thr}, \textbf{AF
 
 Note that Affymetrix provides two sets of internal \textit{bio} and \textit{poly-A} controls. If we take as an example the bioB spike control, two similar probe sets IDs are present on some GeneChips: \texttt{AFFX-BioB-3\_at} and \texttt{AFFX-r2-Ec-bioB-3\_at}. These two probe sets target the same gene, but the individual probes are slightly shifted. The \textit{r2} probe sets include less probes (11 for each control spike) than the older non-\textit{r2} sets (20 probes per set). The \Rpackage{yaqcaffy} package uses the \textit{r2} probe sets unless these are not available (as in older GeneChips).
 
-The \textbf{GAPDH} and \textbf{Beta-Actin} 3'/5' signal ratios are RNA degradation controls (see slot \Robject{gcos.probes}). These values should generally be smaller then 3. Nevertheless, double amplification is known to have a significant impact on these two parameters.
+The \textbf{GAPDH} and \textbf{$\beta$-Actin} 3'/5' signal ratios are RNA degradation controls (see slot \Robject{gcos.probes}). These values should generally be smaller then 3. Nevertheless, double amplification is known to have a significant impact on these two parameters.
 
 More information regarding the Affymetrix internal controls can be found in the \textit{GeneChip Expression Analysis} and \textit{Data Analysis Fundamentals} manuals \footnote{\url{http://www.affymetrix.com/support/technical/manual/expression_manual.affx}}.
 
@@ -123,7 +123,7 @@ The outliers (i.e. the data points the lie outside the mean +/- 2 stdev) can be 
 getOutliers(yqc,"sfs")
 @
 
-The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of apperance on the qc plot). In addition, the coefficient of variation is calculated for each qc metric and indicated on the qc plot. The outliers can be summerized in a data frame calling the \Rfunction{summary()} function on a \Robject{YAQCStats} object.
+The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of apperance on the qc plot). Individual plots can also be generated with the \texttt{which} argument: 'sfs' for the scale factor, 'avbg' and 'avns' for the average background and noise, 'pp' for the percentage of present calls, 'gapdh' and 'actin' for the GAPDH and $\beta$-actin ratios, 'bio' for the hybridization controls and 'spikes' for the retro-transciption spiked controls. In addition, the coefficient of variation is calculated for each qc metric and indicated on the qc plot. The outliers can be summerized in a data frame calling the \Rfunction{summary()} function on a \Robject{YAQCStats} object.
 
 \bigskip
 

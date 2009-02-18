@@ -14,7 +14,8 @@ exportMethods("avns",
               "plot",
               "show",
               "yaqc",
-              "merge"
+              "merge",
+              "summary"
               )
 
 export(getSpikeProbes,
