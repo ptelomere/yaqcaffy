@@ -38,7 +38,6 @@ reprodPlot <- function (userAffyBatchObject,ref,
                         cex=1,...) {
   ## checking if MAQCsubset is available
   require("MAQCsubsetAFX") || stop("Requires MAQCsubsetAFX to continue")
-  require("geneplotter")   || stop("Requires geneplotter to continue")
   
   ## preparing the data
   data <- .mergeAffyBatchObjects(userAffyBatchObject,ref)

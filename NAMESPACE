@@ -1,8 +1,7 @@
 import(methods)
 import(simpleaffy)
 
-importFrom("geneplotter", "smoothScatter")
-importFrom("graphics", "plot")
+importFrom("graphics", "plot", "smoothScatter")
 
 exportClasses("YAQCStats")
 exportMethods("avns",
@@ -15,8 +14,7 @@ exportMethods("avns",
               "show",
               "yaqc",
               "merge",
-              "summary"
-              )
+              "summary")
 
 export(getSpikeProbes,
        getBioProbes,

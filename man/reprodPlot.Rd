@@ -25,7 +25,7 @@
 }
 \details{
    The plot shows all the pairwise scatterplots (plotted with 
-   \link[geneplotter]{geneplotter})'s \code{smoothScatter} function) 
+   \link[graphics]{graphics})'s \code{smoothScatter} function) 
    with Pearson's correlation factor and MAplots (plotted with 
    \link[affy]{affy}'s \code{ma.plot} function).
    The subset of the MAQC arrays are 1 randomly chosen .CEL file out 
