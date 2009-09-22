@@ -14,10 +14,12 @@
     provided as an AffBatch object,}
     \item{ref}{a string ("refA", "refB", "refC", or "refD") defining the RNA 
     reference to compare the userAffyBatchObject to,}
-    \item{normalize}{a string defining the algorithm used for data normalization: 
-    \code{rma} (default) for RMA (as imlplemented in the \code{\link[affy]{affy}} library), 
-    \code{gcrma} for GCRMA (as imlplemented in the \code{\link[gcrma]{gcrma}} library), 
-    \code{mas5} for MAS5 (as imlplemented in the \code{\link[affy]{affy}} library) 
+    \item{normalize}{a string defining the algorithm used for data
+      normalization:  
+    \code{rma} (default) for RMA (as imlplemented in the \pkg{affy} library), 
+    \code{gcrma} for GCRMA (as imlplemented in the
+    \code{\link[gcrma]{gcrma}} library),  
+    \code{mas5} for MAS5 (as imlplemented in the \pkg{affy} library) 
     or 'none' for no normalization,}
     \item{main}{an overall title for the plot,}
     \item{cex}{size of text on the plot,}
@@ -25,9 +27,10 @@
 }
 \details{
    The plot shows all the pairwise scatterplots (plotted with 
-   \link[graphics]{graphics})'s \code{smoothScatter} function) 
+   \pkg{graphics})'s \code{\link[graphics:smoothscatter]{smoothScatter}}
+   function)  
    with Pearson's correlation factor and MAplots (plotted with 
-   \link[affy]{affy}'s \code{ma.plot} function).
+   \pkg{affy}'s \code{\link[affy:MAplot]{ma.plot}} function).
    The subset of the MAQC arrays are 1 randomly chosen .CEL file out 
    of the 5 replicates for the 6 different test site.
 }
