@@ -27,7 +27,7 @@
 }
 \details{
    The plot shows all the pairwise scatterplots (plotted with 
-   \pkg{graphics})'s \code{\link[graphics:smoothscatter]{smoothScatter}}
+   \pkg{graphics})'s \code{\link[graphics]{smoothScatter}}
    function)  
    with Pearson's correlation factor and MAplots (plotted with 
    \pkg{affy}'s \code{\link[affy:MAplot]{ma.plot}} function).
