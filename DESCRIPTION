@@ -5,7 +5,7 @@ Author: Laurent Gatto
 Description: Quality control of Affymetrix GeneChip expression data  
              and reproducibility analysis of human whole genome chips 
              with the MAQC reference datasets. 
-Maintainer: Laurent Gatto <l.gatto@dnavision.be>
+Maintainer: Laurent Gatto <laurent.gatto@gmail.com>
 Depends: simpleaffy (>= 2.19.3), methods
 Suggests: MAQCsubsetAFX, affydata, xtable
 Imports: simpleaffy, methods
