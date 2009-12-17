@@ -1,10 +1,29 @@
--TODO------------------------------------------------------------
------------------------------------------------------------------
-- add possibility to set groups for qc analysis
-- add possibility to remove/add samples when doing stats/plots
-- add more stats than correlation values (for example % genes with 
-  FC<0.5, FC>2...) in reprodPlot
-- add possibility to use custom AffyBatchObjects in reprodPlot
-- add an 'Affymetrix Report File input' argument to yaqc
-- check that morespikes and alpha/qc.probes have the same chips
-(- more report-like reprodPlot graph)
+## ============================
+##  yaqcaffy todo's (org-mode)
+## - - - - - - - - - - - - - - 
+
+* Features [2/7]
+ - [X] automatic control probe selection - version 1.7.1 <2009-12-16 Wed>
+ - [X] GUI for probe selection - version 1.7.1 <2009-12-16 Wed>
+ - [ ] add possibility to set groups for qc analysis 
+ - [ ] add possibility to remove/add samples when doing stats/plots
+ - [ ] yaqc by batch with progress bar
+ - [ ] add more stats than correlation values (for example % genes with FC<0.5, FC>2...), MAplots in reprodPlot
+ - [ ] add possibility to use custom AffyBatchObjects in reprodPlot
+
+* Programming [0/2]
+ - [ ] yaqcaffy validity method
+ - [ ] adding RUnit
+
+* Documentation [0/4]
+ - [ ] update vignette
+ - [ ] describe classes in vignette
+ - [ ] citation
+ - [ ] NEWS
+ - [ ] Biocviews update
+
+
+
+
+
+

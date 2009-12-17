@@ -8,6 +8,8 @@
 \alias{bioCalls}
 \alias{arrays}
 \alias{plot}
+\alias{objectVersion}
+\alias{getYaqcControlProbes}
 
 \usage{
 isLog(object)
@@ -15,6 +17,8 @@ avns(object)
 moreSpikeInProbes(object)
 gcosProbes(object)
 bioCalls(object)
+objectVersion(object)
+getYaqcControlProbes(object)
 }
 
 \description{
@@ -32,40 +36,23 @@ as defined in the \pkg{simpleaffy} package. \code{sfs},
 
 Briefly:
 
-isLog:             Returns a logical saying if the expression
-intensities are in log2 from.
-
+isLog:             Returns a logical saying if the expression intensities are in log2 from.
 target:            Returns the target value (for MAS 5.0 normalization).
-
-moreSpikeInProbes: Returns a table of intensities for the internal spike
-probes.
-
-gcosProbes:        Returns a table of intensities for GAPDH and
-\eqn{\beta}-actin probes.
-
-avbg:              Returns a vector of the average background levels for
-each array.
-
-minbg:             Returns a vector of the minimum background levels for
-each array.
-
-percent.present:   Returns a vector listing the percentage of probesets
-called present on each array.
-
-sfs:               Returns a vector of scale factors for each array (as
-produced by the MAS 5.0 algorithm).
-
-bioCalls:          Returns a table of Present/Marginal/Absent calls for
-the spike probes.
-
-arrays:            Returns the names of the arrays in the YAQCStats
-object.
-
-plot:              Plots the YACQStats object (see
-\code{\link[yaqcaffy:yaqc.affy]{yaqc}} for more details). 
+moreSpikeInProbes: Returns a table of intensities for the internal spike probes.
+gcosProbes:        Returns a table of intensities for GAPDH and \eqn{\beta}-actin probes.
+avbg:              Returns a vector of the average background levels for each array.
+minbg:             Returns a vector of the minimum background levels for each array.
+percent.present:   Returns a vector listing the percentage of probesets called present on each array.
+sfs:               Returns a vector of scale factors for each array (as produced by the MAS 5.0 algorithm).
+bioCalls:          Returns a table of Present/Marginal/Absent calls for the spike probes.
+arrays:            Returns the names of the arrays in the YAQCStats object.
+plot:              Plots the YACQStats object (see \code{\link[yaqcaffy:yaqc.affy]{yaqc}} for more details).
+objectVersion:     Returns the version of the \code{yaqcaffy} package used to create the given object
+getYaqcControlProbes: Returns the probes used to generate the current object as instance of the \code{\linkS4class{YaqcControlProbes}} class.
 }
 
-\seealso{\code{\link[yaqcaffy:yaqc.affy]{yaqc}}, \code{QCStats}}  
+
+\seealso{\code{\link[yaqcaffy:yaqc.affy]{yaqc}}, \code{QCStats}} 
 
 \arguments{
   \item{object}{an object of class \code{"YAQCStats"}}

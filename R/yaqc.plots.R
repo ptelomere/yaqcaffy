@@ -41,12 +41,12 @@
   }
   if (which=="actin") {
     ## plotting beta-actin 3'/5' ratios
-    data<-getQCRatios(YAQCStatsObject)[1,]
+    data <- getQCRatios(YAQCStatsObject)[1,]
     .plotdata(data,title="beta-actin 3'/5'",...)
   }
   if (which=="gapdh") {
     ## plotting GAPDH 3'/5' ratios
-    data<-getQCRatios(YAQCStatsObject)[2,]
+    data <- getQCRatios(YAQCStatsObject)[2,]
     .plotdata(data,title="GAPDH 3'/5'",...)
   }
 }
@@ -82,41 +82,40 @@
   
 .plotBioQC<-function(YAQCStatsObject,calls=TRUE,...) {
     ## plotting BioB spike values
-    bb<-getAllInt(YAQCStatsObject,"biob")
+    bb <- getAllInt(YAQCStatsObject,"b[3|5|m]")
     ## plotting BioC spike values
-    bc<-getAllInt(YAQCStatsObject,"bioc")
+    bc <- getAllInt(YAQCStatsObject,"c[3|5|m]")
     ## plotting BioD spike values
-    bd<-getAllInt(YAQCStatsObject,"biod")
+    bd <- getAllInt(YAQCStatsObject,"d[3|5|m]")
     ## BioB, BioC and BioD boxplots
-    low<-min(bb,bc,bd)*0.9
-    up <-max(bb,bc,bd)*1.1
-    i<-1
+    low <- min(bb,bc,bd)*0.9
+    up  <- max(bb,bc,bd)*1.1
+    i <- 1
     ## get the graph
-    bx<-boxplot(bb,col="red",boxwex=0.3,at=0.7,ylim=c(low,up),...)
+    bx <- boxplot(bb,col="red",boxwex=0.3,at=0.7,ylim=c(low,up),...)
     ## firest rectangle
     .plotrectangle(bb,0.7)
     ## first boxplot (again)
-    bx<-boxplot(bb,col="red",boxwex=0.3,at=0.7,ylim=c(low,up),add=T,...)
+    bx <- boxplot(bb,col="red",boxwex=0.3,at=0.7,ylim=c(low,up),add=T,...)
     for(i in 1:length(bx)) { text(0.7,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
     ## second rectange
     .plotrectangle(bc,1)
     ## second boxplot
-    bx<-boxplot(bc,col="blue",boxwex=0.3,at=1,add=T,...)
+    bx <- boxplot(bc,col="blue",boxwex=0.3,at=1,add=T,...)
     for(i in 1:length(bx)) { text(1,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
     ## third rectangle
     .plotrectangle(bd,1.3)
     ## third boxplot
-    bx<-boxplot(bd,col="green",boxwex=0.3,at=1.3,add=T,...)
+    bx <- boxplot(bd,col="green",boxwex=0.3,at=1.3,add=T,...)
     for(i in 1:length(bx)) { text(1.3,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
     if (calls) {
-        b<-paste("BioB -",round(mean(.bcalls(YAQCStatsObject,"B")),0),"% present")
-        c<-paste("BioC -",round(mean(.bcalls(YAQCStatsObject,"C")),0),"% present")
-        d<-paste("BioD -",round(mean(.bcalls(YAQCStatsObject,"D")),0),"% present")
-    }
-    else {
-        b<-"BioB"
-        c<-"BioC"
-        d<-"BioD"
+        b <- paste("BioB -",round(mean(.bcalls(YAQCStatsObject,"B")),0),"% present")
+        c <- paste("BioC -",round(mean(.bcalls(YAQCStatsObject,"C")),0),"% present")
+        d <- paste("BioD -",round(mean(.bcalls(YAQCStatsObject,"D")),0),"% present")
+    } else {
+        b <- "BioB"
+        c <- "BioC"
+        d <- "BioD"
     }
     b <- paste(b,"- CV:",round(sd(bb)/mean(bb),2))
     c <- paste(c,"- CV:",round(sd(bc)/mean(bc),2))

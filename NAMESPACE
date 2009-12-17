@@ -3,7 +3,12 @@ import(simpleaffy)
 
 importFrom("graphics", "plot", "smoothScatter")
 
-exportClasses("YAQCStats")
+exportClasses("YAQCStats",
+              "YaqcControlProbes",
+              "YaqcBioProbes",
+              "YaqcSpkProbes",
+              "YaqcDegProbes")
+
 exportMethods("avns",
               "bioCalls",
               "gcosProbes",
@@ -14,13 +19,22 @@ exportMethods("avns",
               "show",
               "yaqc",
               "merge",
-              "summary")
+              "summary",
+              "objectVersion")
+
+
+exportMethods("getYaqcControlProbes",
+              "info",
+              "info<-",
+              "bio",
+              "spk",
+              "deg")
 
 export(getSpikeProbes,
        getBioProbes,
        getRatioProbes,
        getQCRatios,
        getAllInt,
-       getOutliers,
-       yaqc.plot,
-       reprodPlot)
+       probeSelectionInterface,
+       reprodPlot,
+       getOutliers)

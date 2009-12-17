@@ -52,4 +52,4 @@
 
 \author{Laurent Gatto}
  
-\keyword{misc}
+\keyword{hplot}

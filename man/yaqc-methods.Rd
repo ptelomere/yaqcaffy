@@ -9,10 +9,10 @@
   ExpressionSet) input } 
 
 \section{Methods}{
- \describe{
-  \item{object="eSet"}{ Create a full YAQCStats object for an AffyBatch
- input or a light YAQCStats object for am ExpressionSet input. } 
- }
+  \describe{
+    \item{object="eSet"}{ Create a full YAQCStats object for an AffyBatch
+      input or a light YAQCStats object for an ExpressionSet input. } 
+  }
 }
 
 \seealso{ \code{\link{yaqc.affy}}}
