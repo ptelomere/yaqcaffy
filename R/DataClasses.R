@@ -16,6 +16,10 @@ setClass("YaqcBioProbes",
              if (!all(names(object@bio) %in% nms))
                msg <- validMsg(msg, "Invalid bio probes names.")
            }
+           if (any(grepl(" ",object@bio))) { ## probes must not contain spaces
+             k <- grep(" ",object@bio)
+             msg <- validMsg(msg, paste("Invalid probes:",object@bio[k]))
+           }
            if (is.null(msg)) TRUE
            else msg
          })
@@ -36,6 +40,10 @@ setClass("YaqcSpkProbes",
              if (!all(names(object@spk) %in% nms))
                msg <- validMsg(msg, "Invalid spk probes names.")
            }
+           if (any(grepl(" ",object@spk))) { ## probes must not contain spaces
+             k <- grep(" ",object@spk)
+             msg <- validMsg(msg, paste("Invalid probes:",object@spk[k]))
+           }
            if (is.null(msg)) TRUE
            else msg
          })
@@ -54,6 +62,10 @@ setClass("YaqcDegProbes",
              msg <- validMsg(msg, "Deg probes are unnamed.")
              if (!all(names(object@deg) %in% nms))
                msg <- validMsg(msg, "Invalid deg probes names.")
+           }
+           if (any(grepl(" ",object@deg))) { ## probes must not contain spaces
+             k <- grep(" ",object@deg)
+             msg <- validMsg(msg, paste("Invalid probes:",object@deg[k]))
            }
            if (is.null(msg)) TRUE
            else msg

@@ -52,9 +52,9 @@ probeSelectionInterface <- function(object,
   xact3 <- tclVar("Select an actin_3 probe") ## deg
   xact5 <- tclVar("Select an actin_5 probe")
   xactm <- tclVar("Select an actin_m probe")
-  xgap3 <- tclVar("Select an gapdh_3 probe")
-  xgap5 <- tclVar("Select an gapdh_5 probe")
-  xgapm <- tclVar("Select an gapdh_m probe")
+  xgap3 <- tclVar("Select a gapdh_3 probe")
+  xgap5 <- tclVar("Select a gapdh_5 probe")
+  xgapm <- tclVar("Select a gapdh_m probe")
   
   if (filter) {
     ## First tab: Hybridization
