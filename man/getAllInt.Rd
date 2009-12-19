@@ -1,7 +1,7 @@
 \name{getAllInt}
 \alias{getAllInt}
 
-\title{ Get the GCOS values for a given spike probe }
+\title{ Get the summerized MAS5 values for a given spike probe }
 \description{
     This function retrieves the expression intensities prvided by the object of
     class \code{"YAQCStats"} for the probe which names are compatible with the 
@@ -31,6 +31,8 @@
     ## get intensities for the biob
     ## spikes probe sets
     getAllInt(qc,"biob")
+    ## or
+    getAllInt(qc,"b[3|5|m]")
 }
 
 
