@@ -29,7 +29,7 @@ setClass("YaqcSpkProbes",
          validity = function(object) {
            msg <- validMsg(NULL, NULL)
            nms <- c("dap5","dap3","dapm",
-                    "thr5","thr3","them",
+                    "thr5","thr3","thrm",
                     "lys5","lys3","lysm",
                     "phe5","phe3","phem")
            l <- length(nms)

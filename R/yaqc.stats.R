@@ -186,11 +186,12 @@ getQCRatios <- function(YAQCStatsObject) {
 
 
 getAllInt <- function(YAQCStatsObject,pattern) {
-    vals <- YAQCStatsObject@morespikes
-    unique.names <- rownames(vals)
-    lst <- grep(pattern,unique.names,ignore.case=T,value=T)
-    int<-apply(YAQCStatsObject@morespikes[lst,],2,mean)
-    return(int)
+  vals <- YAQCStatsObject@morespikes
+  unique.names <- rownames(vals)
+  lst <- grep(pattern,unique.names,ignore.case=T,value=T)
+  if (length(lst)<1) stop("No probe found with '",pattern,"' pattern.",sep="")
+  int<-apply(YAQCStatsObject@morespikes[lst,],2,mean)
+  return(int)
 }
 
 .bcalls<-function(YAQCStatsObject,pattern) {
@@ -245,7 +246,7 @@ yaqc.affy.exprSet<-function(exprSetObject,myYaqcControlProbes,logged=logged) {
     names(mybio) <- c("b5","b3","bm","c5","c3","d5","d3")
     myspk <- c(getSpk(c("dap","thr","lys","phe"),c("5","3","m"),exprSetObject,onlyFirst=TRUE))
     names(myspk) <-nms <- c("dap5","dap3","dapm",
-                            "thr5","thr3","them",
+                            "thr5","thr3","thrm",
                             "lys5","lys3","lysm",
                             "phe5","phe3","phem")
     mydeg <- c(getDeg(c("actin","gapdh"),c("5","3","m"),exprSetObject,onlyFirst=TRUE))
@@ -295,7 +296,7 @@ yaqc.affy.affybatch <- function(affyBatchObject,
     names(mybio) <- c("b5","b3","bm","c5","c3","d5","d3")
     myspk <- c(getSpk(c("dap","thr","lys","phe"),c("5","3","m"),affyBatchObject,onlyFirst=TRUE))
     names(myspk) <-nms <- c("dap5","dap3","dapm",
-                            "thr5","thr3","them",
+                            "thr5","thr3","thrm",
                             "lys5","lys3","lysm",
                             "phe5","phe3","phem")
     mydeg <- c(getDeg(c("actin","gapdh"),c("5","3","m"),affyBatchObject,onlyFirst=TRUE))
