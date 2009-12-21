@@ -30,7 +30,7 @@ The \Rpackage{simpleaffy} package provides a variety of functions for high-level
 
 Since \Rpackage{yaqcaffy} is based on the \Rpackage{simpleaffy} (for example, it creates an \Robject{YAQCStats} object which is a subclass of \Rpackage{simpleaffy}'s \Robject{QCStats}), a basic understanding of the library, its vignette and the simpleaffy QC capabilities described in \textit{QC and Affymetrix data}\footnote{\url{http://bioinf.picr.man.ac.uk/simpleaffy/QCandSimpleaffy.pdf}} is welcome. 
 
-\section{The Affymetrix quality metrics}\label{sec:qcdesc} 
+\section{The Affymetrix Quality Metrics}\label{sec:qcdesc} 
 
 The \textbf{scale factor} (\Robject{scale.factors} slot\footnote{defined in the \Rpackage{simpleaffy}'s {QCStats} object}) is an array specific value that is used by Affymetrix software to adjust array intensities towards a user defined target value (default tgt=100 in \Rpackage{simpleaffy} and \Rpackage{yaqcaffy}) based on the (trimmed) mean array intensities. If there are no biases of labeling or hybridization across arrays, the highest value for the scale factor should be less than three times the smallest value.
 
@@ -53,13 +53,15 @@ More information regarding the Affymetrix internal controls can be found in the 
 To assess the quality of the samples to analyses, we suggest that qc metrics should lie within 2 standard deviations of one another across the entire set of arrays. We apply this rule to the above mentioned metrics. For the scale factor, we define the upper and lower limits as the $mean/2$ and $mean*1.5$ respectively to stick to Affymetrix's three-fold rule. 
 
 
-\section{The MAQC reference datasets}\label{sec:maqc} 
+\section{The MAQC Reference Datasets}\label{sec:maqc} 
 
 The Microarray Quality Consortium (MAQC) project\footnote{\url{http://www.fda.gov/nctr/science/centers/toxicoinformatics/maqc/}} provides a set of reference datasets for a set of platforms (see \textit{Summary of the MAQC Data Sets}\footnote{\url{http://edkb.fda.gov/MAQC/MainStudy/upload/Summary\_MAQC\_DataSets.pdf}} for more details). Regarding the Affymetrix platform (AFX prefix), a total of 120 Human Genome U133 Plus 2.0 GeneChips have been generated. Four different reference RNAs have been used: (A) 100\% of Stratagene's \textit{Universal Human Reference RNA}, (B) 100\% of Ambion's Human Brain Reference RNA, (C) 75\% of A and 25\% of B and (D) 25\% of A and 75\% of B. Each reference has been repeated 5 times (noted \_A1\_ to \_A5\_) on six different test sites (noted \_1\_ to \_6\_). As an example, the .CEL result file for the first replicate of test site 2, for the reference ARN C is named \texttt{AFX\_2\_C1.CEL}.
 
 These datasets are freely available and allow researchers, among other things, to compare the reproducibility of their own Human Genome U133 Plus 2.0 arrays with a set of high quality .CEL files. Nevertheless, using all the 30 available .CEL files (per reference RNA) is memory consuming and further reproducibility calculations time consuming. We randomly chose 6 .CEL file for each reference RNA, one for each test site as reference to compare the user's data to. These 6 .CEL files are distributed with the \Rpackage{MAQCsubsetAFX} package as associated data (respectively called \Robject{refA.RData}, \Robject{refB.RData}, \Robject{refC.RData} and \Robject{refD.RData}). These subsets are used to compute the Pearson correlation factors and draw scatterplots with the users data (see section \ref{sec:reprod}).
 
-\section{Generating an \Robject{YAQCStats} objects }\label{sec:qcdata} 
+\section{Data Classes defined in \Rpackage{yaqcaffy}}\label{sec:classes}
+
+\section{Generating an \Robject{YAQCStats} Object }\label{sec:qcdata} 
 
 % As an example, we will use the MAQC \Robject{refA} dataset (see section \ref{sec:maqc}) from the \Rpackage{MAQCsubsetAFX} package.
 As an example, we will use \Rpackage{affydata}'s \Robject{Dilution} dataset. We will modify the raw probe intensities of the first sample to illustrate some of \Rpackage{yaqcaffy}'s functions below.
@@ -93,7 +95,7 @@ show(yqc)
 
 In the above examples, the data given as input is of class \Robject{AffyBatch} object. An \Robject{YAQCStats} object can also be created by providing an \Robject{ExpressionSet}, in which case some of the qc metrics cannot be computed: only the intensity values for the bioB, bioC, bioD and dap, lys, phe and thr probes and GAPDH and $\beta$-actin probes are used.
 
-\section{Quality control analysis}\label{sec:qcanalysis} 
+\section{Quality Control Analysis}\label{sec:qcanalysis} 
 
 The quality metrics in the \Robject{YAQCStats} object can be plotted out to allow an easy and rapid overview, as shown on figure \ref{fig:yaqc}:
 \begin{itemize}
@@ -103,7 +105,6 @@ The quality metrics in the \Robject{YAQCStats} object can be plotted out to allo
 \end{itemize}
 
 The mean (longdashed line), upper and lower 2 standard deviations (dotted lines) are also plotted on the graphs. The upper and lower limits may however not appear when they are outside of the boxplot y-axis. For the internal probes, a grey rectangle represents the mean (middle segment) and the +/- 2 stdev range.
-
 
 
 \begin{figure}
@@ -137,8 +138,10 @@ yqc3<-merge(yqc,yqc2)
 arrays(yqc3)
 @
 
+\section{Generating ones own Control Probes Object}\label{sec:gui}
 
-\section{Human genome U133 Plus 2.0 reproducibility}\label{sec:reprod} 
+
+\section{Human genome U133 Plus 2.0 Reproducibility}\label{sec:reprod} 
 
 To illustrate this section, we will compare the first array of the RNA B reference dataset (\Robject{AFX\_1\_B1.CEL}) to the RNA A reference dataset\footnote{Note that the reproducibility statistics will \textit{de facto} be low, as the conditions to be compared are different.}. 
 
@@ -166,11 +169,10 @@ reprodPlot(d,"test",normalize="none")
 @
 \end{center}
 
-
 \section{Session information}\label{sec:sessionInfo} 
 
-<<label=sessioninfo>>=
-sessionInfo()
+<<label=sessioninfo,results=tex,echo=FALSE>>=
+toLatex(sessionInfo())
 @
 
 

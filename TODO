@@ -15,12 +15,12 @@
  - [ ] yaqcaffy validity method
  - [ ] adding RUnit
 
-* Documentation [0/4]
+* Documentation [1/5]
  - [ ] update vignette
  - [ ] describe classes in vignette
  - [ ] citation
  - [ ] NEWS
- - [ ] Biocviews update
+ - [X] Biocviews update (was OK)
 
 
 
