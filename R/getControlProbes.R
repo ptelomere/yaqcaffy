@@ -1,6 +1,6 @@
 .checkNumberOfProbes <- function(probe,msg="") {
   if (length(probe)==0) stop(c(msg,"No probe found."),call.=FALSE)
-  if (length(probe)>1) warning(c(msg,"More than 1 probes found."),call.=FALSE)
+  if (length(probe)>1) warning(c(msg,paste(probe,collapse=","),"\nMore than 1 probes found:"),call.=FALSE)
   invisible(length(probe))
 }
 
