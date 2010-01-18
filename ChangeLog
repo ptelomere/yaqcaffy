@@ -1,3 +1,6 @@
+* New in version 1.7.7
+ - updated vignette <2010-01-18 Mon>
+
 * New in version 1.7.6
  - updated vignette <2010-01-03 Sun>
  - .checkNumberOfProbes function: added probe names in warning when > 1 probe <2010-01-03 Sun>

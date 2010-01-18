@@ -16,7 +16,7 @@
 \newcommand{\Robject}[1]{{\texttt{#1}}}
 \newcommand{\Rpackage}[1]{{\textit{#1}}}
 
-\author{Laurent Gatto}
+\author{Laurent Gatto\footnote{\url{laurent.gatto@gmail.com}}}
 \begin{document}
 \title{yaqcaffy: Affymetrix expression GeneChips quality control and reproducibility with MAQC datasets}
 
@@ -24,7 +24,9 @@
 \tableofcontents
 \section{Introduction}\label{sec:intro} 
 
-The \Rpackage{yaqcaffy} package is part of the Bioconductor\footnote{\url{http://www.bioconductor.org/}} project. It was written to automate the analysis of Affymetrix expression arrays and test in-house Human Whole Genome GeneChips array reproducibility against (a subset of) the Microarray Quality Consortium (MAQC) reference datasets. It is based on the \Rpackage{affy} and, in particular, \Rpackage{simpleaffy} packages, which do all the hard work.
+Quality control is an important step in the analyses of microarray data. Indeed, poor quality arrays can can significant impact on subsequent analyses and conseqeuntly invalidate their interpretation. The Bioconductor project has several packages for quality control of microarray data, as listed under the \textit{QualityControl} biocViews item.
+
+The \Rpackage{yaqcaffy} package is part of the Bioconductor\footnote{\url{http://www.bioconductor.org/}} project. It was written to automate the quality analysis of Affymetrix expression arrays and test in-house Human Whole Genome GeneChips array reproducibility against (a subset of) the Microarray Quality Consortium (MAQC) reference datasets. It is based on the \Rpackage{affy} and, in particular, \Rpackage{simpleaffy} packages, which do all the hard work.
 The \Rpackage{simpleaffy} package provides a variety of functions for high-level analysis of Affymetrix data as well as methods to assess some quality metrics of the arrays.
 
 
@@ -50,7 +52,7 @@ More information regarding the Affymetrix internal controls can be found in the 
 
 \bigskip
 
-To assess the quality of the samples to analyses, we suggest that qc metrics should lie within 2 standard deviations of one another across the entire set of arrays. We apply this rule to the above mentioned metrics. For the scale factor, we define the upper and lower limits as the $mean/2$ and $mean*1.5$ respectively to stick to Affymetrix's three-fold rule. 
+To assess the quality of the samples to analyses, we suggest that most qc metrics should lie within 2 standard deviations of one another across the entire set of arrays. We apply this rule to the above mentioned metrics. For the scale factor, we define the upper and lower limits as the $mean/2$ and $mean*1.5$ respectively to stick to Affymetrix's three-fold rule. 
 
 
 \section{The MAQC Reference Datasets}\label{sec:maqc} 
@@ -61,10 +63,23 @@ These datasets are freely available and allow researchers, among other things, t
 
 \section{Data Classes defined in \Rpackage{yaqcaffy}}\label{sec:classes}
 
+The main function of the package is \Rfunction{yaqc}, which is described in section \ref{sec:qcdata}. When calling this function with and \Robject{AffyBatch} object, (1) the data is normalised with the MAS5 algorithm, (2) the quality control probes are selected (an object of class \Robject{YaqcControlProbes} is instanciated), (3) the expression intensities and other quality metrics are extracted and (4) and \Robject{YaqcStats} object is created. 
+
+\subsection{\Robject{YAQCStats} class}\label{sec:classes:yaqcstats}
+
+The \Robject{YAQCStats} class is the main class of the \Rpackage{yaqcaffy} pckage. It contains all the values of the quality metrics and is used to plot the quality plots. Since version 1.7 of the package, this class also contains two additional slots. The \Robject{objectVersion} stores the version of the library used to generate the \Robject{YAQCStats} object. The probe names used to compute the quality metrics are also explicitely stored and can be retrieved with the \Rfunction{getYaqcControlProbes} function (see section \ref{sec:classes:yaqccontrolprobes} for more details). 
+
+\subsection{\Robject{YaqcControlProbes} class}\label{sec:classes:yaqccontrolprobes}
+
+This class is contains the names of the three main groups of control probes: the hybridization control probes (\textit{bio} probes), the labeling control probes (the \textit{spike} probes) and the degradation probes (used to compute the 3'/5' ratios). The three groups are contained in their own classes, namely \Robject{YaqcBioProbes}, \Robject{YaqcSpkProbes} and \Robject{YaqcDegProbes}.
+
+The quality control probes that are used are selected automatically and appropriate warnings or errors are issued in several cases. These probes can also be explicitely selected by the user, as described in section \ref{sec:gui}.
+
 \section{Generating an \Robject{YAQCStats} Object }\label{sec:qcdata} 
 
 % As an example, we will use the MAQC \Robject{refA} dataset (see section \ref{sec:maqc}) from the \Rpackage{MAQCsubsetAFX} package.
 As an example, we will use \Rpackage{affydata}'s \Robject{Dilution} dataset. We will modify the raw probe intensities of the first sample to illustrate some of \Rpackage{yaqcaffy}'s functions below.
+
 
 <<label=data>>=
 library("yaqcaffy")
@@ -92,6 +107,12 @@ The newly created object can then be visualized as a \Robject{data frame} with t
 yqc <-yaqc(Dilution,verbose=TRUE)
 show(yqc)
 @
+
+The version of the package that has been used to generate a given object can be recovered with the \Rfunction{objectVersion} function. 
+
+<<label=objectversion>>=
+objectVersion(yqc)
+@ 
 
 In the above examples, the data given as input is of class \Robject{AffyBatch} object. An \Robject{YAQCStats} object can also be created by providing an \Robject{ExpressionSet}, in which case some of the qc metrics cannot be computed: only the intensity values for the bioB, bioC, bioD and dap, lys, phe and thr probes and GAPDH and $\beta$-actin probes are used.
 
@@ -140,6 +161,38 @@ arrays(yqc3)
 
 \section{Generating ones own Control Probes Object}\label{sec:gui}
 
+As already mentionned, the control probes are selected automatically. The selection is done based on patterns in the Affymetrix probe names. When possible, the \textit{r2} probes are used . If these are not available (for instance in older arrays), the non-\textit{r2} are used and a warning message is issued. 
+
+Sometimes, several probes can match a given pattern. In this case, a warning is issued but only the first probe is retained. All the probes that matched the pattern are given as part as the warning message. If the first probe is not the best one or if it does not match with the other probes of the group, the user is invited to created his/her own control probes.
+
+If no probes match the pattern, an error is issued and the function exits.
+
+The probes can be selected trough a graphical user interface that is started with the \Rfunction(probeSelectionInterface) function. This function requires a \Robject{AffyBatch} (or \Robject{ExpressionSet}) object as parameter. An additionnal logical parameter \Robject{filter} (which is by default set to TRUE) controls if the control probes can be selected from all the probes on the GeneChip or if a pre-filtering is done. This filtering removes the probes that are explicitely non-control features and groups the hybridization and labeling probes accordingly. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=.35\linewidth]{Screenshot-Filtered_selection.png}
+\caption{QC probes selection window.}
+\label{fig:screenshot}
+\end{center}
+\end{figure}
+
+
+A tabbed window (see figure \ref{fig:screenshot}) opens up. Note that the probe selection is saved as an \Robject{yaqcControlProbes} object in the global environment once the window is closed. It is names \textit{yaqcControlProbes} by default. The name of the output can be set with the \Robject{returnVar} parameter. If an object named \textit{yaqccontrolProbes} alredy exists, the warning is issued in a new window and the user can cancel the operation to avoid to overwrite it existing object.
+
+The tabs correspond to the three classes of control probes that can be defined. The \textit{hybridization} tab has 7 drop-down menues, for the three BioB probes (5', M and 3'), the two BioC probes (5' and 3') and the two BioD probes (5' and 3'). The \textit{labeling} tab has 12 drop-down menues, for the dap, thr, phe and lys 3', M and 5' probes respectively. The \textit{degradation} tab has 6 drop-down menues, for the beta-actin and GAPDH 3', M and 5' probes respectively. 
+
+For some arrays, other probe sets than beta-actin and GAPDH are used for degradation control. These other genes will be present in the list (even when filtering is used). 
+
+Once the probes are selected, an \Robject{YaqcControlProbes} object (named as defined by returnVar, see above) is saved in the global environment when pressing \texttt{Ok}. No object is saved if the \texttt{Close} is pressed. 
+
+Note that the validity of any \Robject{YaqcControlProbes} object is checked before it is generated. Among the validity requirements of this class, there are constrains on the probe names, which must not contain white spaces. As such, all the probes must be properly selected from the drop-down menues. I not, an 'Error in validObject(.Object)' will be issued.
+
+This object can then be used to generate an \Robject{YAQCStats} object as descrined in section \ref{sec:qcdata}, by adding it as a parameter to the \Rfunction{yaqc} function as shown below.
+
+<<label=myyaqccontolprobes,eval=FALSE>>=
+yqc <- yaqc(myAffyData,myYaqcControlProbes="yaqcControlProbes")
+@ 
 
 \section{Human genome U133 Plus 2.0 Reproducibility}\label{sec:reprod} 
 
@@ -160,7 +213,6 @@ The \Rfunction{reprodPlot} function draws a 6 by 6 matrix showing scatterplots (
  reprodPlot(d,"refA",normalize="rma")
 @
 
-
 The figure below is an example of the \Rfunction{reprodPlot} for 2 unnormalized samples \footnote{This \texttt{test} plot is used instead of the 6 by 6 plot to reduce time and size requirements to build the vignette.}. 
 
 \begin{center}
@@ -169,20 +221,17 @@ reprodPlot(d,"test",normalize="none")
 @
 \end{center}
 
+\section{Acknowledgements}\label{sec:acknowledgements}
+
+This package has initially been developped at DNAVision in collaboration with Jean-Francois Laes.
+
 \section{Session information}\label{sec:sessionInfo} 
 
 <<label=sessioninfo,results=tex,echo=FALSE>>=
 toLatex(sessionInfo())
 @
 
-
 % \bibliography{}
 
-
 \end{document}
-
-
-
-
-
 
