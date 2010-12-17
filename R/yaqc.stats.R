@@ -189,8 +189,8 @@ getAllInt <- function(YAQCStatsObject,pattern) {
   vals <- YAQCStatsObject@morespikes
   unique.names <- rownames(vals)
   if (pattern=="biob") pattern <- "b[5|3|m]"
-  if (pattern=="bioc") pattern <- "b[5|3]"
-  if (pattern=="biod") pattern <- "b[5|3]"
+  if (pattern=="bioc") pattern <- "c[5|3]"
+  if (pattern=="biod") pattern <- "d[5|3]"
   lst <- grep(pattern,unique.names,ignore.case=T,value=T)
   if (length(lst)<1) stop("No probe found with '",pattern,"' pattern.",sep="")
   int<-apply(YAQCStatsObject@morespikes[lst,],2,mean)
