@@ -20,8 +20,8 @@ filter=TRUE)
 }
 
 \arguments{
-  \item{object}{an object of class \code{\linkS4class{AffyBatch}} or
-    \code{\linkS4class{ExpressionSet}}.}  
+  \item{object}{an object of class \code{AffyBatch} or
+    \code{ExpressionSet}.}  
   \item{returnVar}{a string defining the name of the variable the
     returned object will be saved as in the global environment. The
     default variable name is 'yaqcControlProbes'. If such a variable
