@@ -1,7 +1,7 @@
 import(methods)
 import(simpleaffy)
 
-importFrom("graphics", "plot", "smoothScatter")
+##importFrom("graphics", "plot", "smoothScatter")
 
 exportClasses("YAQCStats",
               "YaqcControlProbes",
