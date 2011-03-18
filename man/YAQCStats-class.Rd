@@ -23,8 +23,10 @@
 \alias{getYaqcControlProbes,method}
 
 \alias{plot,YAQCStats,ANY-method}
-\alias{summary,YAQCStats,ANY-method}
 \alias{show,YAQCStats-method}
+\alias{summary,YAQCStats,ANY-method}
+\alias{summary,YAQCStats-method}
+\alias{merge,YAQCStats,ANY-method}
 \alias{merge,YAQCStats-method}
 \alias{arrays,YAQCStats-method}
 

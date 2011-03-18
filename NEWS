@@ -1,3 +1,7 @@
+* New in version 1.11.5 <2011-03-18 Fri>
+ - merge,YAQCStats,ANY-method not proberly aliased in man/YAQCStats-class.Rd.
+ - mv'ed ChangeLog file to NEWS
+
 * New in version 1.7.7
  - updated vignette <2010-01-18 Mon>
 
