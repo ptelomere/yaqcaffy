@@ -2,11 +2,13 @@
 \alias{getAllInt}
 
 \title{ Get the summerized MAS5 values for a given spike probe }
+
 \description{
     This function retrieves the expression intensities prvided by the object of
     class \code{"YAQCStats"} for the probe which names are compatible with the 
     given pattern and return their mean value.
 }
+
 \usage{
   getAllInt(YAQCStatsObject,pattern)
 }

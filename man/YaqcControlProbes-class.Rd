@@ -2,14 +2,20 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{YaqcControlProbes-class}
+\alias{class:YaqcControlProbes}
 \alias{YaqcBioProbes-class}
+\alias{class:YaqcBioProbes}
 \alias{YaqcSpkProbes-class}
+\alias{class:YaqcSpkProbes}
 \alias{YaqcDegProbes-class}
+\alias{class:YaqcDegProbes}
 \alias{bio,YaqcControlProbes-method}
 \alias{bio,YaqcBioProbes-method}
+\alias{bio-methods}
 \alias{bio}
 \alias{deg,YaqcControlProbes-method}
 \alias{deg,YaqcDegProbes-method}
+\alias{deg-methods}
 \alias{deg}
 \alias{info<-,YaqcControlProbes-method}
 \alias{info,YaqcControlProbes-method}
@@ -21,22 +27,24 @@
 \alias{show,YaqcDegProbes-method}
 \alias{spk,YaqcControlProbes-method}
 \alias{spk,YaqcSpkProbes-method}
+\alias{spk-methods}
 \alias{spk}
 
 \title{Class "YaqcControlProbes" }
 \description{
   The \code{\linkS4class{YAQCStats}} class stores the probes used for the
   quality control as a special class, namely the
-  \code{\linkS4class{YaqcControlProbes}} class. This class encapsulated
+  \code{YaqcControlProbes} class. This class encapsulated
   the probe names that are used the generate an
-  \code{\link{YAQCStats-class}} object. Objects of this class are
+  \code{\linkS4class{YAQCStats}} object. Objects of this class are
   created with the \code{\link{probeSelectionInterface}} function.  The
   hybridization, labelling and degradation probes are encapsulated in
   \code{YaqcBioProbes}, \code{YaqcSpkProbes} and \code{YaqcDegProbes}
-  objects respectively. These  can be retrieved as described in
-  \code{\link{bio-methods}}, \code{\link{spk-methods}} and
-  \code{\link{deg-methods}}. Furthermore, an \code{info} function allows
-  to retrive or set a free text slot to describe the current object.
+  objects respectively. These can be retrieved with their respective
+  accessors, as described below.
+  Furthermore, an \code{info} function allows
+  to retrieve or set a free text slot to describe the
+  \code{YaqcControlProbes} object.
 }
 
 \section{Slots}{
@@ -59,12 +67,22 @@
   \describe{
     \item{bio}{\code{signature(object = "YaqcControlProbes")}: returns
       the 'bio' (BioB5, BioB3, BioBM, BioC5,...) hybridization probes of
-      the current object.}
+      the current object, as an \code{YaqcBioProbes} instance. }
+    \item{bio}{\code{signature(object = "YaqcBioProbes")}: returns
+      the 'bio' (BioB5, BioB3, BioBM, BioC5,...) hybridization probes of
+      the current object, as characters. }
     \item{spk}{\code{signature(object = "YaqcControlProbes")}: returns
       the labelling probes (dap5, dap3, dap3, phe5,...) of the current
-      object.}
+      object, as an \code{YaqcSpkProbes} instance. }
+    \item{spk}{\code{signature(object = "YaqcSpkProbes")}: returns
+      the labelling probes (dap5, dap3, dap3, phe5,...) of the current
+      object, as characters}
     \item{deg}{\code{signature(object = "YaqcControlProbes")}: returns 
-      the degradation probes used to assess the 3'/5'ratio.} 
+      the degradation probes used to assess the 3'/5'ratio, as an
+      \code{YaqcDegProbes} instance. }
+    \item{deg}{\code{signature(object = "YaqcDegProbes")}: returns 
+      the degradation probes used to assess the 3'/5'ratio, as
+      characters. }    
     \item{info}{\code{signature(object = "YaqcControlProbes")}: returns
       the inforation slot of the current object.}
     \item{info<-}{\code{signature(object = "YaqcControlProbes")}: sets
@@ -75,10 +93,8 @@
 }
 \author{ Laurent Gatto }
 
-\seealso{\code{\link{probeSelectionInterface}},
-  \code{\link{bio-methods}},
-  \code{\link{spk-methods}},
-  \code{\link{deg-methods}},
+\seealso{
+  \code{\link{probeSelectionInterface}} and 
   \code{\linkS4class{YAQCStats}}
 }
 

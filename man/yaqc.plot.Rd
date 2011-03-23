@@ -1,20 +1,28 @@
 \name{yaqc.plot}
 \alias{yaqc.plot}
-\alias{plot,YAQCStats}
-\alias{plot,YAQCStats-method}
 \alias{plot,YAQCStats,missing-method}
-
+\alias{plot,YAQCStats}
 
 \title{Plots a YAQCStats object}
+
 \description{
-  Generates a visual summary of the various Affymetrix QC statistics.
+  S4 method to plot an \code{\linkS4class{YAQCStats}} object.
+  \code{plot(object)} generates a visual summary of the various Affymetrix QC statistics.
 }
-\usage{yaqc.plot(YAQCStatsObject, which,...)}
+
+\usage{
+yaqc.plot(YAQCStatsObject, which=c("all","sfs","avbg","avns","pp","gapdh","actin","bio","spikes"), ...)
+}
+
 \arguments{
-    \item{YAQCStatsObject}{an object of class \code{"YAQCStats"}.}
-    \item{which}{which quality metrics should be plotted (all by default).}
-    \item{...}{other arguments.}
-}
+  \item{YAQCStatsObject}{An object of class
+    \code{\linkS4class{YAQCStats}}.} 
+  \item{which}{Which quality metrics should be plotted (all by
+    default). See below for details.}
+  \item{...}{Other arguments passed to the respective \code{plot}
+    methods.} 
+  }
+  
 \details{
     The quality control metrics of the \code{YAQCStatsObject} are plotted 
     in a serie of graphs with the recommended ranges. 

@@ -1,6 +1,6 @@
 Package: yaqcaffy
 Title: Affymetrix expression data quality control and reproducibility analysis
-Version: 1.11.5
+Version: 1.11.6
 Author: Laurent Gatto
 Description: Quality control of Affymetrix GeneChip expression data  
              and reproducibility analysis of human whole genome chips 
@@ -8,7 +8,6 @@ Description: Quality control of Affymetrix GeneChip expression data
 Maintainer: Laurent Gatto <laurent.gatto@gmail.com>
 Depends: simpleaffy (>= 2.19.3), methods
 Suggests: MAQCsubsetAFX, affydata, xtable, tcltk2, tcltk
-Imports: simpleaffy, methods
 biocViews: Microarray,OneChannel,QualityControl,ReportWriting
 License: Artistic-2.0
 URL: http://sites.google.com/site/laurentgatto/r-bioconductor/yaqcaffy

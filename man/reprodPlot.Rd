@@ -1,5 +1,6 @@
 \name{reprodPlot}
 \alias{reprodPlot}
+
 \title{Plot human whole genome GeneChips reproductibility}
 \description{
     Compares Affymetrix Human Genome U133 Plus 2.0 Arrays to a subset 

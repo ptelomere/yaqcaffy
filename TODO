@@ -13,13 +13,13 @@
 
 * Programming [0/2]
  - [ ] yaqcaffy validity method
- - [ ] adding RUnit
+ - [ ] adding unit testing
 
-* Documentation [1/5]
+* Documentation [2/5]
  - [ ] update vignette
  - [ ] describe classes in vignette
  - [ ] citation
- - [ ] NEWS
+ - [X] NEWS
  - [X] Biocviews update (was OK)
 
 

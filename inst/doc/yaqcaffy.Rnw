@@ -192,7 +192,7 @@ For some arrays, other probe sets than beta-actin and GAPDH are used for degrada
 
 Once the probes are selected, an \Robject{YaqcControlProbes} object (named as defined by returnVar, see above) is saved in the global environment when pressing \texttt{Ok}. No object is saved if the \texttt{Close} is pressed. 
 
-Note that the validity of any \Robject{YaqcControlProbes} object is checked before it is generated. Among the validity requirements of this class, there are constrains on the probe names, which must not contain white spaces. As such, all the probes must be properly selected from the drop-down menues. I not, an 'Error in validObject(.Object)' will be issued.
+Note that the validity of any \Robject{YaqcControlProbes} object is checked before it is generated. Among the validity requirements of this class, there are constrains on the probe names, which must not contain white spaces. As such, all the probes must be properly selected from the drop-down menues. If not, an 'Error in validObject(.Object)' will be issued.
 
 This object can then be used to generate an \Robject{YAQCStats} object as descrined in section \ref{sec:qcdata}, by adding it as a parameter to the \Rfunction{yaqc} function as shown below.
 
@@ -207,7 +207,7 @@ To illustrate this section, we will compare the first array of the RNA B referen
 <<label=maqcsubsetafx>>=
 library(MAQCsubsetAFX)
 data(refB)
-d<-refB[,1]
+d <- refB[,1]
 sampleNames(d)
 @
 

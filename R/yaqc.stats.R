@@ -9,8 +9,8 @@ setMethod("getYaqcControlProbes","YAQCStats",function(object) object@yaqcControl
 setMethod("objectVersion",    "YAQCStats",function(object) object@objectVersion)
 
 
-setMethod("summary",c("YAQCStats"),
-          function(object,...) yaqc.summary(object,...)
+setMethod("summary","YAQCStats",
+          function(object,...) yaqc.summary(object,latex)
           )
 
 yaqc.summary <- function(YAQCStatsObject,latex=FALSE) {
@@ -229,7 +229,7 @@ yaqc.affy<-function(object,      ## affybatch or expressionSet object
   if (class(object)=="AffyBatch")
     yaqc.affy.affybatch(object,myYaqcControlProbes,alphas,tgt,tau,verbose=verbose)
   
-  ## If there is no AffyBatch object, an expressionSet object must be
+  ## If there is no AffyBatch object, an ExpressionSet object must be
   ## provided. In this case, sfs, tgt, percentage present,
   ## average background, average noise, and probe calls are not computed
   ## and are not set in the YAQCStats object.
@@ -384,7 +384,8 @@ setMethod("yaqc","eSet",function(object,...) yaqc.affy(object,...))
 ###############################################################################
 
 setMethod("show","YAQCStats",function(object) yaqc.show(object))
-setMethod("merge","YAQCStats",function(x,y,...) merge.yaqc(x,y,...))
+setMethod("merge",c("YAQCStats","YAQCStats"),
+                    function(x,y,...) merge.yaqc(x,y,...))
 
 
 yaqc.show <- function(object) {

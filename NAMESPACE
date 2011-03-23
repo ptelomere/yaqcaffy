@@ -1,6 +1,3 @@
-import(methods)
-import(simpleaffy)
-
 ##importFrom("graphics", "plot", "smoothScatter")
 
 exportClasses("YAQCStats",

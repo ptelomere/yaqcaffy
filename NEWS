@@ -1,10 +1,17 @@
-* New in version 1.11.5 <2011-03-18 Fri>
- - merge,YAQCStats,ANY-method not proberly aliased in man/YAQCStats-class.Rd.
- - mv'ed ChangeLog file to NEWS
+CHANGES IN VERSION 1.11.6 
+-------------------------
+ o Rd files updated/merged/corrected <2011-03-23 Wed>
 
-* New in version 1.7.7
- - updated vignette <2010-01-18 Mon>
+CHANGES IN VERSION 1.11.5 
+-------------------------
+ o merge,YAQCStats,ANY-method not proberly aliased in man/YAQCStats-class.Rd. <2011-03-18 Fri>
+ o mv'ed ChangeLog file to NEWS <2011-03-18 Fri>
 
-* New in version 1.7.6
- - updated vignette <2010-01-03 Sun>
- - .checkNumberOfProbes function: added probe names in warning when > 1 probe <2010-01-03 Sun>
+CHANGES IN VERISON 1.7.7
+------------------------
+ o updated vignette <2010-01-18 Mon>
+
+CHANGES IN VERISON 1.7.6
+------------------------
+ o updated vignette <2010-01-03 Sun>
+ o .checkNumberOfProbes function: added probe names in warning when > 1 probe <2010-01-03 Sun>

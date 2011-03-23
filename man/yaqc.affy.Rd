@@ -1,8 +1,14 @@
 \name{yaqc.affy}
 \alias{yaqc.affy}
 \alias{yaqc}
+\alias{yaqc-methods}
+\alias{yaqc-method}
+\alias{method:yaqc}
+\alias{yaqc,eSet-method}
+\alias{yaqc,ExpressionSet-method}
+\alias{yaqc,AffyBatch-method}
 
-\title{Generate QC Stats from an AffyBatch Object }
+\title{'YAQCStats' constructor}
 
 \description{Generate YAQC metrics for Affymetrix data.}
 
@@ -55,7 +61,7 @@ verbose) }
     indicating progress. If 'FALSE' nothing should be printed.}
 }
 
-\value{ An YAQCStats object describing the input object }
+\value{ An \code{YAQCStats} object describing the input object }
 
 \author{ Laurent Gatto }
 
