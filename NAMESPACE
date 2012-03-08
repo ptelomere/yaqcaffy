@@ -1,4 +1,5 @@
 ##importFrom("graphics", "plot", "smoothScatter")
+importFrom(stats4, plot)
 
 exportClasses("YAQCStats",
               "YaqcControlProbes",
