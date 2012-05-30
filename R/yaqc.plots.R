@@ -7,14 +7,14 @@
 ##----------------------------------------------------##
 
 .plotrectangle <- function(data,where) {
-    x1<-where-.1
-    x2<-where+.1
-    m<-mean(data)
-    s<-sd(data)
+    x1 <- where - .5
+    x2 <- where + .5
+    m <- mean(data)
+    s <- sd(data)
     blq <- qnorm(.025,m,s)
     buq <- qnorm(.975,m,s)
-    rect(x1,blq,x2,buq,border="grey95")    
-    segments(x1,m,x2,m,col="grey95")
+    rect(x1, blq, x2, buq, border = "grey90")    
+    segments(x1, m, x2, m, col = "grey90", lty = "dashed")
 }
 
 .plotdata<-function(data,title,color="white",outliers=TRUE,...) {
@@ -80,34 +80,32 @@
   .plotdata(data,title="% present",...)
 }
   
-.plotBioQC<-function(YAQCStatsObject,calls=TRUE,...) {
+.plotBioQC<-function(YAQCStatsObject, calls = TRUE, ...) {
     ## plotting BioB spike values
     bb <- getAllInt(YAQCStatsObject,"b[3|5|m]")
     ## plotting BioC spike values
     bc <- getAllInt(YAQCStatsObject,"c[3|5|m]")
     ## plotting BioD spike values
     bd <- getAllInt(YAQCStatsObject,"d[3|5|m]")
+    ball <- cbind(bb, bc, bd)
     ## BioB, BioC and BioD boxplots
-    low <- min(bb,bc,bd)*0.9
-    up  <- max(bb,bc,bd)*1.1
-    i <- 1
-    ## get the graph
-    bx <- boxplot(bb,col="red",boxwex=0.3,at=0.7,ylim=c(low,up),...)
-    ## firest rectangle
-    .plotrectangle(bb,0.7)
-    ## first boxplot (again)
-    bx <- boxplot(bb,col="red",boxwex=0.3,at=0.7,ylim=c(low,up),add=T,...)
-    for(i in 1:length(bx)) { text(0.7,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
-    ## second rectange
-    .plotrectangle(bc,1)
-    ## second boxplot
-    bx <- boxplot(bc,col="blue",boxwex=0.3,at=1,add=T,...)
-    for(i in 1:length(bx)) { text(1,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
-    ## third rectangle
-    .plotrectangle(bd,1.3)
-    ## third boxplot
-    bx <- boxplot(bd,col="green",boxwex=0.3,at=1.3,add=T,...)
-    for(i in 1:length(bx)) { text(1.3,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
+    ## full graph
+    bx <- boxplot(ball, col= c("red", "blue", "green"), ...)
+    ## rectangles and outlier names
+    .plotrectangle(bb, 1)
+    bx <- boxplot(bb, plot = FALSE)    
+    for(i in 1:length(bx))
+      text(1, bx$out[i], names(bx$out[i]), cex=0.75, pos=1)    
+    ## 
+    .plotrectangle(bc, 2)
+    bx <- boxplot(bc, plot = FALSE)
+    for(i in 1:length(bx))
+      text(2, bx$out[i], names(bx$out[i]), cex=0.75, pos=1) 
+    ## 
+    .plotrectangle(bd,3)
+    bx <- boxplot(bd, plot = FALSE)
+    for(i in 1:length(bx))
+      text(3, bx$out[i], names(bx$out[i]), cex=0.75, pos=1) 
     if (calls) {
         b <- paste("BioB -",round(mean(.bcalls(YAQCStatsObject,"B")),0),"% present")
         c <- paste("BioC -",round(mean(.bcalls(YAQCStatsObject,"C")),0),"% present")
@@ -120,40 +118,47 @@
     b <- paste(b,"- CV:",round(sd(bb)/mean(bb),2))
     c <- paste(c,"- CV:",round(sd(bc)/mean(bc),2))
     d <- paste(d,"- CV:",round(sd(bd)/mean(bd),2))    
-    legend("topleft",c(b,c,d),fill=c("red","blue","green"),cex=1)
+    legend("topleft", c(b,c,d), fill=c("red","blue","green"), cex=1, bty = "n")
   }
 
-.plotSpikesQC<-function(YAQCStatsObject,...) {
+.plotSpikesQC <- function(YAQCStatsObject, ...) {
     ## plotting lys values
-    lys<-getAllInt(YAQCStatsObject,"lys")
+    lys <- getAllInt(YAQCStatsObject, "lys")
     ## plotting dap values
-    dap<-getAllInt(YAQCStatsObject,"dap")
+    dap <- getAllInt(YAQCStatsObject, "dap")
     ## plotting phe values
-    phe<-getAllInt(YAQCStatsObject,"phe")
+    phe <- getAllInt(YAQCStatsObject, "phe")
     ## plotting thr values 
-    thr<-getAllInt(YAQCStatsObject,"thr")
+    thr <- getAllInt(YAQCStatsObject, "thr")
     ## lys, dap, phe and thr boxplots
-    low<-min(lys,dap,phe,thr)*0.9
-    up <-max(lys,dap,phe,thr)*1.1
-    i<-0
-    bx<-boxplot(dap,col="purple",boxwex=0.25,at=0.6,ylim=c(low,up),...)
-    .plotrectangle(dap,0.6)
-    bx<-boxplot(dap,col="purple",boxwex=0.25,at=0.6,ylim=c(low,up),add=T,...)
-    for(i in 1:length(bx)) { text(0.6,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
-    .plotrectangle(thr,0.85)    
-    bx<-boxplot(thr,col="maroon",boxwex=0.25,at=0.85,add=T,...)
-    for(i in 1:length(bx)) { text(0.85,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
-    .plotrectangle(phe,1.15)
-    bx<-boxplot(phe,col="yellow",boxwex=0.25,at=1.15,add=T,...)
-    for(i in 1:length(bx)) { text(1.15,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
-    .plotrectangle(lys,1.4)    
-    bx<-boxplot(lys,col="orange",boxwex=0.25,at=1.4,add=T,...)
-    for(i in 1:length(bx)) { text(1.4,bx$out[i],names(bx$out[i]),cex=0.75,pos=1) }
+    spk <- cbind(dap, thr, phe, lys)
+    boxplot(spk, col = c("purple", "maroon", "yellow", "orange"))
+    ## rectangles and outlier names
+    .plotrectangle(dap, 1)
+    bx <- boxplot(dap, plot = FALSE)
+    for (i in 1:length(bx))
+      text(1, bx$out[i], names(bx$out[i]), cex = 0.75, pos = 1) 
+    ## 
+    .plotrectangle(thr, 2)    
+    bx <- boxplot(thr, plot = FALSE)
+    for (i in 1:length(bx))
+      text(2, bx$out[i], names(bx$out[i]), cex = 0.75, pos = 1)
+    ## 
+    .plotrectangle(phe,3)
+    bx <- boxplot(phe, plot = FALSE)
+    for (i in 1:length(bx))
+      text(3, bx$out[i], names(bx$out[i]), cex = 0.75, pos = 1)
+    ## 
+    .plotrectangle(lys, 4)    
+    bx <- boxplot(lys, plot = FALSE)
+    for (i in 1:length(bx))
+      text(4, bx$out[i], names(bx$out[i]), cex = 0.75, pos = 1) 
+    ##
     dd <- paste("Dap - CV:", round(sd(dap)/mean(dap),2))
     tt <- paste("Thr - CV:", round(sd(thr)/mean(thr),2))
     pp <- paste("Phe - CV:", round(sd(phe)/mean(phe),2))
-    ll <- paste("Lys - CV:", round(sd(lys)/mean(lys),2))
-    legend("topright",c(dd,tt,pp,ll),fill=c("purple","maroon","yellow","orange"),cex=1)
+    ll <- paste("Lys - CV:", round(sd(lys)/mean(lys),2))    
+    legend("topright", c(dd,tt,pp,ll), fill = c("purple","maroon","yellow","orange"), cex = 1, bty = "n")
   }
 
 ##====================================================##
@@ -188,8 +193,8 @@ yaqc.plot.part<-function(YAQCStatsObject) {
     .plotSpikesQC(YAQCStatsObject)
 }
 
-yaqc.plot.all<-function(YAQCStatsObject) {
-    op<-par(no.readonly=T) ## save original parameters
+yaqc.plot.all <- function(YAQCStatsObject) {
+    op <- par(no.readonly=T) ## save original parameters
     par(mar=c(2,4,4,2))
     layout(matrix(c(1:6,rep(7,3),rep(8,3)),2,byrow=T))
     ## plotting AffyBatch object specific QC metrics
@@ -201,7 +206,7 @@ yaqc.plot.all<-function(YAQCStatsObject) {
     .plotQCRatios(YAQCStatsObject)
     par(mar=c(5,4,4,1))
     ## plotting Bio QC metrics
-    .plotBioQC(YAQCStatsObject,calls=TRUE)
+    .plotBioQC(YAQCStatsObject, calls = TRUE)
     ## plotting spike QC metrics
     .plotSpikesQC(YAQCStatsObject)
     par(op) ## restore original parameters
