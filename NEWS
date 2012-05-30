@@ -1,6 +1,7 @@
 CHANGES IN VERSION 1.17.1 
 -------------------------
  o fixed boxplot alignment <2012-05-30 Wed>
+ o deleted vignette Makefile <2012-05-30 Wed>
 
 CHANGES IN VERSION 1.15.1 
 -------------------------
