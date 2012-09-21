@@ -10,9 +10,9 @@ setMethod("objectVersion",    "YAQCStats",function(object) object@objectVersion)
 
 
 setMethod("summary","YAQCStats",
-          function(object,...) yaqc.summary(object, latex = FALSE))
+          function(object,...) yaqc.summary(object, ...))
 
-yaqc.summary <- function(YAQCStatsObject, latex) {
+yaqc.summary <- function(YAQCStatsObject, latex = FALSE) {
   if (latex) {
     require("xtable") || stop("'xtable' library is required to generate a latex summary table.")
   }
