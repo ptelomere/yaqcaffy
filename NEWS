@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.17.2 
+-------------------------
+ o fixed NOTE about no visible binding for global variable ‘latex’ <2012-09-21 Fri>
+ o 'Warning: found methods to import for function ‘as.list’ but not 
+   the generic itself' comes from upstreams. <2012-09-22 Sat>
+
 CHANGES IN VERSION 1.17.1 
 -------------------------
  o fixed boxplot alignment <2012-05-30 Wed>
