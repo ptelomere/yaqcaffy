@@ -1,32 +1,36 @@
+CHANGES IN VERSION 1.23.1
+-------------------------
+ o moved inst/doc to vignettes [2013-10-19 Sat]
+
 CHANGES IN VERSION 1.17.2 
 -------------------------
- o fixed NOTE about no visible binding for global variable ‘latex’ <2012-09-21 Fri>
+ o fixed NOTE about no visible binding for global variable ‘latex’ [2012-09-21 Fri]
  o 'Warning: found methods to import for function ‘as.list’ but not 
-   the generic itself' comes from upstreams. <2012-09-22 Sat>
+   the generic itself' comes from upstreams. [2012-09-22 Sat]
 
 CHANGES IN VERSION 1.17.1 
 -------------------------
- o fixed boxplot alignment <2012-05-30 Wed>
- o deleted vignette Makefile <2012-05-30 Wed>
+ o fixed boxplot alignment [2012-05-30 Wed]
+ o deleted vignette Makefile [2012-05-30 Wed]
 
 CHANGES IN VERSION 1.15.1 
 -------------------------
- o remove url from DESCRIPTION <2011-12-23 Fri>
+ o remove url from DESCRIPTION [2011-12-23 Fri]
 
 CHANGES IN VERSION 1.11.6 
 -------------------------
- o Rd files updated/merged/corrected <2011-03-23 Wed>
+ o Rd files updated/merged/corrected [2011-03-23 Wed]
 
 CHANGES IN VERSION 1.11.5 
 -------------------------
- o merge,YAQCStats,ANY-method not proberly aliased in man/YAQCStats-class.Rd. <2011-03-18 Fri>
- o mv'ed ChangeLog file to NEWS <2011-03-18 Fri>
+ o merge,YAQCStats,ANY-method not proberly aliased in man/YAQCStats-class.Rd. [2011-03-18 Fri]
+ o mv'ed ChangeLog file to NEWS [2011-03-18 Fri]
 
 CHANGES IN VERISON 1.7.7
 ------------------------
- o updated vignette <2010-01-18 Mon>
+ o updated vignette [2010-01-18 Mon]
 
 CHANGES IN VERISON 1.7.6
 ------------------------
- o updated vignette <2010-01-03 Sun>
- o .checkNumberOfProbes function: added probe names in warning when > 1 probe <2010-01-03 Sun>
+ o updated vignette [2010-01-03 Sun]
+ o .checkNumberOfProbes function: added probe names in warning when > 1 probe [2010-01-03 Sun]

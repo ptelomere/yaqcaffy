@@ -323,8 +323,8 @@ yaqc.affy.affybatch <- function(affyBatchObject,
   if (is.null(alphas)) {
     ## getting alpha1 and alpha2 from
     ## simpleaffy's qcdef fille
-    alpha1 <- yaqcaffy:::getAlpha1(affyBatchObject)
-    alpha2 <- yaqcaffy:::getAlpha2(affyBatchObject)
+    alpha1 <- getAlpha1(affyBatchObject)
+    alpha2 <- getAlpha2(affyBatchObject)
     ## if no aqdef file found, setting default values
     ## and a warning is returned by getAlpha[1|2]
     if (is.null(alpha1)) alpha1 <- 0.04 
