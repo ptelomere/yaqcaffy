@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.25.1
+-------------------------
+ o fixed typo in vignette code chunk [2014-05-08 Thu]
+
 CHANGES IN VERSION 1.23.1
 -------------------------
  o moved inst/doc to vignettes [2013-10-19 Sat]

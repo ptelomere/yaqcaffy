@@ -24,35 +24,108 @@
 \tableofcontents
 \section{Introduction}\label{sec:intro} 
 
-Quality control is an important step in the analyses of microarray data. Indeed, poor quality arrays can can significant impact on subsequent analyses and conseqeuntly invalidate their interpretation. The Bioconductor project has several packages for quality control of microarray data, as listed under the \textit{QualityControl} biocViews item.
+Quality control is an important step in the analyses of microarray
+data. Indeed, poor quality arrays can can significant impact on
+subsequent analyses and conseqeuntly invalidate their
+interpretation. The Bioconductor project has several packages for
+quality control of microarray data, as listed under the
+\textit{QualityControl} biocViews item.
 
-The \Rpackage{yaqcaffy} package is part of the Bioconductor\footnote{\url{http://www.bioconductor.org/}} project. It was written to automate the quality analysis of Affymetrix expression arrays and test in-house Human Whole Genome GeneChips array reproducibility against (a subset of) the Microarray Quality Consortium (MAQC) reference datasets. It is based on the \Rpackage{affy} and, in particular, \Rpackage{simpleaffy} packages, which do all the hard work.
-The \Rpackage{simpleaffy} package provides a variety of functions for high-level analysis of Affymetrix data as well as methods to assess some quality metrics of the arrays.
+The \Rpackage{yaqcaffy} package is part of the
+Bioconductor\footnote{\url{http://www.bioconductor.org/}} project. It
+was written to automate the quality analysis of Affymetrix expression
+arrays and test in-house Human Whole Genome GeneChips array
+reproducibility against (a subset of) the Microarray Quality
+Consortium (MAQC) reference datasets. It is based on the
+\Rpackage{affy} and, in particular, \Rpackage{simpleaffy} packages,
+which do all the hard work.  The \Rpackage{simpleaffy} package
+provides a variety of functions for high-level analysis of Affymetrix
+data as well as methods to assess some quality metrics of the arrays.
 
 
-Since \Rpackage{yaqcaffy} is based on the \Rpackage{simpleaffy} (for example, it creates an \Robject{YAQCStats} object which is a subclass of \Rpackage{simpleaffy}'s \Robject{QCStats}), a basic understanding of the library, its vignette and the simpleaffy QC capabilities described in \textit{QC and Affymetrix data}\footnote{\url{http://bioinf.picr.man.ac.uk/simpleaffy/QCandSimpleaffy.pdf}} is welcome. 
+Since \Rpackage{yaqcaffy} is based on the \Rpackage{simpleaffy} (for
+example, it creates an \Robject{YAQCStats} object which is a subclass
+of \Rpackage{simpleaffy}'s \Robject{QCStats}), a basic understanding
+of the library, its vignette and the simpleaffy QC capabilities
+described in \textit{QC and Affymetrix
+  data}\footnote{\url{http://bioinf.picr.man.ac.uk/simpleaffy/QCandSimpleaffy.pdf}}
+is welcome.
 
 \section{The Affymetrix Quality Metrics}\label{sec:qcdesc} 
 
-The \textbf{scale factor} (\Robject{scale.factors} slot\footnote{defined in the \Rpackage{simpleaffy}'s {QCStats} object}) is an array specific value that is used by Affymetrix software to adjust array intensities towards a user defined target value (default tgt=100 in \Rpackage{simpleaffy} and \Rpackage{yaqcaffy}) based on the (trimmed) mean array intensities. If there are no biases of labeling or hybridization across arrays, the highest value for the scale factor should be less than three times the smallest value.
+The \textbf{scale factor} (\Robject{scale.factors}
+slot\footnote{defined in the \Rpackage{simpleaffy}'s {QCStats}
+  object}) is an array specific value that is used by Affymetrix
+software to adjust array intensities towards a user defined target
+value (default tgt=100 in \Rpackage{simpleaffy} and
+\Rpackage{yaqcaffy}) based on the (trimmed) mean array intensities. If
+there are no biases of labeling or hybridization across arrays, the
+highest value for the scale factor should be less than three times the
+smallest value.
 
-The \textbf{background} and \textbf{noise averages} (\Robject{average.background}\footnotemark[3] and \Robject{average.noise} slots) assume that the hybridization occurred with the similar background and noise. Affymetrix suggests that arrays being compared should ideally have comparable background and noise values.
+The \textbf{background} and \textbf{noise averages}
+(\Robject{average.background}\footnotemark[3] and
+\Robject{average.noise} slots) assume that the hybridization occurred
+with the similar background and noise. Affymetrix suggests that arrays
+being compared should ideally have comparable background and noise
+values.
 
-The \textbf{percentage of present calls} (\Robject{percent.present}\footnotemark[3] slot) assumes that the number of probe sets called present relative to the total number of probe sets remains similar across arrays. Nevertheless, variability in the percentage of present calls might also represent biological variability.
+The \textbf{percentage of present calls}
+(\Robject{percent.present}\footnotemark[3] slot) assumes that the
+number of probe sets called present relative to the total number of
+probe sets remains similar across arrays. Nevertheless, variability in
+the percentage of present calls might also represent biological
+variability.
 
-The internal probe calls \textbf{AFFX-r2-Ec-bioB} (M', 3' ,5'), \textbf{bioC} (5', 3') and \textbf{bioD} (5', 3') (\Robject{morespikes} and \Robject{bio.calls} slots) are \textit{E. coli} genes that are used as internal hybridization controls and must always be present (P)\footnote{Note that bioB is at the level of array sensitivity and might be absent (A) in less then 50\% calls.}. Furthermore, the overall signal AFFX-r2-Ec-bioB (All), AFFX-r2-Ec-bioC (All) and AFFX-r2-Ec-bioD (All) for these spikes are present in increasing concentration (1.5 pM, 5 pM and 25 pM for bioB, bioC and bioD respectively).
+The internal probe calls \textbf{AFFX-r2-Ec-bioB} (M', 3' ,5'),
+\textbf{bioC} (5', 3') and \textbf{bioD} (5', 3')
+(\Robject{morespikes} and \Robject{bio.calls} slots) are
+\textit{E. coli} genes that are used as internal hybridization
+controls and must always be present (P)\footnote{Note that bioB is at
+  the level of array sensitivity and might be absent (A) in less then
+  50\% calls.}. Furthermore, the overall signal AFFX-r2-Ec-bioB (All),
+AFFX-r2-Ec-bioC (All) and AFFX-r2-Ec-bioD (All) for these spikes are
+present in increasing concentration (1.5 pM, 5 pM and 25 pM for bioB,
+bioC and bioD respectively).
 
-The ploy-A controls \textbf{AFFX-r2-Bs-Dap}, \textbf{AFFX-r2-Bs-Thr}, \textbf{AFFX-r2-Bs-Phe} and \textbf{AFFX-r2-Bs-Lys} (\Robject{morespikes} slot) are modified \textit{B. subtilis} genes and should be called present at a decreasing intensity, to verify that there was no bias during the retro-transcription between highly expressed genes and low expressed genes. Note that the linearity for lys, phe and thr (dap is present at a much higher concentration) is affected by a double amplification.
+The ploy-A controls \textbf{AFFX-r2-Bs-Dap}, \textbf{AFFX-r2-Bs-Thr},
+\textbf{AFFX-r2-Bs-Phe} and \textbf{AFFX-r2-Bs-Lys}
+(\Robject{morespikes} slot) are modified \textit{B. subtilis} genes
+and should be called present at a decreasing intensity, to verify that
+there was no bias during the retro-transcription between highly
+expressed genes and low expressed genes. Note that the linearity for
+lys, phe and thr (dap is present at a much higher concentration) is
+affected by a double amplification.
 
-Note that Affymetrix provides two sets of internal \textit{bio} and \textit{poly-A} controls. If we take as an example the bioB spike control, two similar probe sets IDs are present on some GeneChips: \texttt{AFFX-BioB-3\_at} and \texttt{AFFX-r2-Ec-bioB-3\_at}. These two probe sets target the same gene, but the individual probes are slightly shifted. The \textit{r2} probe sets include less probes (11 for each control spike) than the older non-\textit{r2} sets (20 probes per set). The \Rpackage{yaqcaffy} package uses the \textit{r2} probe sets unless these are not available (as in older GeneChips).
+Note that Affymetrix provides two sets of internal \textit{bio} and
+\textit{poly-A} controls. If we take as an example the bioB spike
+control, two similar probe sets IDs are present on some GeneChips:
+\texttt{AFFX-BioB-3\_at} and \texttt{AFFX-r2-Ec-bioB-3\_at}. These two
+probe sets target the same gene, but the individual probes are
+slightly shifted. The \textit{r2} probe sets include less probes (11
+for each control spike) than the older non-\textit{r2} sets (20 probes
+per set). The \Rpackage{yaqcaffy} package uses the \textit{r2} probe
+sets unless these are not available (as in older GeneChips).
 
-The \textbf{GAPDH} and \textbf{$\beta$-Actin} 3'/5' signal ratios are RNA degradation controls (see slot \Robject{gcos.probes}). These values should generally be smaller then 3. Nevertheless, double amplification is known to have a significant impact on these two parameters.
+The \textbf{GAPDH} and \textbf{$\beta$-Actin} 3'/5' signal ratios are
+RNA degradation controls (see slot \Robject{gcos.probes}). These
+values should generally be smaller then 3. Nevertheless, double
+amplification is known to have a significant impact on these two
+parameters.
 
-More information regarding the Affymetrix internal controls can be found in the \textit{GeneChip Expression Analysis} and \textit{Data Analysis Fundamentals} manuals \footnote{\url{http://www.affymetrix.com/support/technical/manual/expression_manual.affx}}.
+More information regarding the Affymetrix internal controls can be
+found in the \textit{GeneChip Expression Analysis} and \textit{Data
+  Analysis Fundamentals} manuals
+\footnote{\url{http://www.affymetrix.com/support/technical/manual/expression_manual.affx}}.
 
 \bigskip
 
-To assess the quality of the samples to analyses, we suggest that most qc metrics should lie within 2 standard deviations of one another across the entire set of arrays. We apply this rule to the above mentioned metrics. For the scale factor, we define the upper and lower limits as the $mean/2$ and $mean*1.5$ respectively to stick to Affymetrix's three-fold rule. 
+To assess the quality of the samples to analyses, we suggest that most
+qc metrics should lie within 2 standard deviations of one another
+across the entire set of arrays. We apply this rule to the above
+mentioned metrics. For the scale factor, we define the upper and lower
+limits as the $mean/2$ and $mean*1.5$ respectively to stick to
+Affymetrix's three-fold rule.
 
 
 \section{The MAQC Reference Datasets}\label{sec:maqc} 
@@ -62,29 +135,76 @@ The Microarray Quality Consortium (MAQC) project
 \footnote{\url{http://www.fda.gov/ScienceResearch/BioinformaticsTools/MicroarrayQualityControlProject/default.htm}}%%
  provides a set of reference datasets for a set of platforms (see \textit{Summary of the MAQC Data Sets}
 %%\footnote{\url{http://edkb.fda.gov/MAQC/MainStudy/upload/Summary\_MAQC\_DataSets.pdf}} 
-\footnote{\url{http://www.fda.gov/downloads/ScienceResearch/BioinformaticsTools/MicroarrayQualityControlProject/UCM134500.pdf}}%% 
- for more details). Regarding the Affymetrix platform (AFX prefix), a total of 120 Human Genome U133 Plus 2.0 GeneChips have been generated. Four different reference RNAs have been used: (A) 100\% of Stratagene's \textit{Universal Human Reference RNA}, (B) 100\% of Ambion's Human Brain Reference RNA, (C) 75\% of A and 25\% of B and (D) 25\% of A and 75\% of B. Each reference has been repeated 5 times (noted \_A1\_ to \_A5\_) on six different test sites (noted \_1\_ to \_6\_). As an example, the .CEL result file for the first replicate of test site 2, for the reference ARN C is named \texttt{AFX\_2\_C1.CEL}.
+ \footnote{\url{http://www.fda.gov/downloads/ScienceResearch/BioinformaticsTools/MicroarrayQualityControlProject/UCM134500.pdf}}%%
+ for more details). Regarding the Affymetrix platform (AFX prefix), a
+ total of 120 Human Genome U133 Plus 2.0 GeneChips have been
+ generated. Four different reference RNAs have been used: (A) 100\% of
+ Stratagene's \textit{Universal Human Reference RNA}, (B) 100\% of
+ Ambion's Human Brain Reference RNA, (C) 75\% of A and 25\% of B and
+ (D) 25\% of A and 75\% of B. Each reference has been repeated 5 times
+ (noted \_A1\_ to \_A5\_) on six different test sites (noted \_1\_ to
+ \_6\_). As an example, the .CEL result file for the first replicate
+ of test site 2, for the reference ARN C is named
+ \texttt{AFX\_2\_C1.CEL}.
 
-These datasets are freely available and allow researchers, among other things, to compare the reproducibility of their own Human Genome U133 Plus 2.0 arrays with a set of high quality .CEL files. Nevertheless, using all the 30 available .CEL files (per reference RNA) is memory consuming and further reproducibility calculations time consuming. We randomly chose 6 .CEL file for each reference RNA, one for each test site as reference to compare the user's data to. These 6 .CEL files are distributed with the \Rpackage{MAQCsubsetAFX} package as associated data (respectively called \Robject{refA.RData}, \Robject{refB.RData}, \Robject{refC.RData} and \Robject{refD.RData}). These subsets are used to compute the Pearson correlation factors and draw scatterplots with the users data (see section \ref{sec:reprod}).
+ These datasets are freely available and allow researchers, among
+ other things, to compare the reproducibility of their own Human
+ Genome U133 Plus 2.0 arrays with a set of high quality .CEL
+ files. Nevertheless, using all the 30 available .CEL files (per
+ reference RNA) is memory consuming and further reproducibility
+ calculations time consuming. We randomly chose 6 .CEL file for each
+ reference RNA, one for each test site as reference to compare the
+ user's data to. These 6 .CEL files are distributed with the
+ \Rpackage{MAQCsubsetAFX} package as associated data (respectively
+ called \Robject{refA.RData}, \Robject{refB.RData},
+ \Robject{refC.RData} and \Robject{refD.RData}). These subsets are
+ used to compute the Pearson correlation factors and draw scatterplots
+ with the users data (see section \ref{sec:reprod}).
 
 \section{Data Classes defined in \Rpackage{yaqcaffy}}\label{sec:classes}
 
-The main function of the package is \Rfunction{yaqc}, which is described in section \ref{sec:qcdata}. When calling this function with and \Robject{AffyBatch} object, (1) the data is normalised with the MAS5 algorithm, (2) the quality control probes are selected (an object of class \Robject{YaqcControlProbes} is instanciated), (3) the expression intensities and other quality metrics are extracted and (4) and \Robject{YaqcStats} object is created. 
+The main function of the package is \Rfunction{yaqc}, which is
+described in section \ref{sec:qcdata}. When calling this function with
+and \Robject{AffyBatch} object, (1) the data is normalised with the
+MAS5 algorithm, (2) the quality control probes are selected (an object
+of class \Robject{YaqcControlProbes} is instanciated), (3) the
+expression intensities and other quality metrics are extracted and (4)
+and \Robject{YaqcStats} object is created.
 
 \subsection{\Robject{YAQCStats} class}\label{sec:classes:yaqcstats}
 
-The \Robject{YAQCStats} class is the main class of the \Rpackage{yaqcaffy} pckage. It contains all the values of the quality metrics and is used to plot the quality plots. Since version 1.7 of the package, this class also contains two additional slots. The \Robject{objectVersion} stores the version of the library used to generate the \Robject{YAQCStats} object. The probe names used to compute the quality metrics are also explicitely stored and can be retrieved with the \Rfunction{getYaqcControlProbes} function (see section \ref{sec:classes:yaqccontrolprobes} for more details). 
+The \Robject{YAQCStats} class is the main class of the
+\Rpackage{yaqcaffy} pckage. It contains all the values of the quality
+metrics and is used to plot the quality plots. Since version 1.7 of
+the package, this class also contains two additional slots. The
+\Robject{objectVersion} stores the version of the library used to
+generate the \Robject{YAQCStats} object. The probe names used to
+compute the quality metrics are also explicitely stored and can be
+retrieved with the \Rfunction{getYaqcControlProbes} function (see
+section \ref{sec:classes:yaqccontrolprobes} for more details).
 
 \subsection{\Robject{YaqcControlProbes} class}\label{sec:classes:yaqccontrolprobes}
 
-This class is contains the names of the three main groups of control probes: the hybridization control probes (\textit{bio} probes), the labeling control probes (the \textit{spike} probes) and the degradation probes (used to compute the 3'/5' ratios). The three groups are contained in their own classes, namely \Robject{YaqcBioProbes}, \Robject{YaqcSpkProbes} and \Robject{YaqcDegProbes}.
+This class is contains the names of the three main groups of control
+probes: the hybridization control probes (\textit{bio} probes), the
+labeling control probes (the \textit{spike} probes) and the
+degradation probes (used to compute the 3'/5' ratios). The three
+groups are contained in their own classes, namely
+\Robject{YaqcBioProbes}, \Robject{YaqcSpkProbes} and
+\Robject{YaqcDegProbes}.
 
-The quality control probes that are used are selected automatically and appropriate warnings or errors are issued in several cases. These probes can also be explicitely selected by the user, as described in section \ref{sec:gui}.
+The quality control probes that are used are selected automatically
+and appropriate warnings or errors are issued in several cases. These
+probes can also be explicitely selected by the user, as described in
+section \ref{sec:gui}.
 
 \section{Generating an \Robject{YAQCStats} Object }\label{sec:qcdata} 
 
-% As an example, we will use the MAQC \Robject{refA} dataset (see section \ref{sec:maqc}) from the \Rpackage{MAQCsubsetAFX} package.
-As an example, we will use \Rpackage{affydata}'s \Robject{Dilution} dataset. We will modify the raw probe intensities of the first sample to illustrate some of \Rpackage{yaqcaffy}'s functions below.
+% As an example, we will use the MAQC \Robject{refA} dataset (see
+% section \ref{sec:maqc}) from the \Rpackage{MAQCsubsetAFX} package.
+As an example, we will use \Rpackage{affydata}'s \Robject{Dilution}
+dataset. We will modify the raw probe intensities of the first sample
+to illustrate some of \Rpackage{yaqcaffy}'s functions below.
 
 
 <<label=data>>=
@@ -97,41 +217,66 @@ tmp[,1] <- tmp[,1]*2
 exprs(Dilution) <- tmp
 @
 
-The next step is the creation of the \Robject{YAQCStats} object that will hold the data that will subsequently be used to assess the quality of the arrays (see section \ref{sec:qcanalysis}). The \Robject{YAQCStats} object is a subclass of the \Robject{QCStats} object, defined in the \Rpackage{simpleaffy} package.
+The next step is the creation of the \Robject{YAQCStats} object that
+will hold the data that will subsequently be used to assess the
+quality of the arrays (see section \ref{sec:qcanalysis}). The
+\Robject{YAQCStats} object is a subclass of the \Robject{QCStats}
+object, defined in the \Rpackage{simpleaffy} package.
 
-The function \Rfunction{yaqc} computes the following values that are used for quality assignment:
+The function \Rfunction{yaqc} computes the following values that are
+used for quality assignment:
 \begin{enumerate}
-\item the scale factors, percent of present calls, average background and noise that are tested as described above;
+\item the scale factors, percent of present calls, average background
+  and noise that are tested as described above;
 \item the bioB, bioC and bioD calls;
-\item the intensity values for the bioB, bioC, bioD and dap, lys, phe and thr probes, as computed by the Affymetrix GCOS software;
-\item the intensity values for GAPDH and $\beta$-actin probes as computed by the Affymetrix GCOS software.
+\item the intensity values for the bioB, bioC, bioD and dap, lys, phe
+  and thr probes, as computed by the Affymetrix GCOS software;
+\item the intensity values for GAPDH and $\beta$-actin probes as
+  computed by the Affymetrix GCOS software.
 \end{enumerate}
 
-The newly created object can then be visualized as a \Robject{data frame} with the \Rfunction{show()} function.
+The newly created object can then be visualized as a \Robject{data
+  frame} with the \Rfunction{show()} function.
 
 <<label=yaqc>>=
-yqc <-yaqc(Dilution,verbose=TRUE)
+yqc <- yaqc(Dilution, verbose=TRUE)
 show(yqc)
 @
 
-The version of the package that has been used to generate a given object can be recovered with the \Rfunction{objectVersion} function. 
+The version of the package that has been used to generate a given
+object can be recovered with the \Rfunction{objectVersion} function.
 
 <<label=objectversion>>=
 objectVersion(yqc)
 @ 
 
-In the above examples, the data given as input is of class \Robject{AffyBatch} object. An \Robject{YAQCStats} object can also be created by providing an \Robject{ExpressionSet}, in which case some of the qc metrics cannot be computed: only the intensity values for the bioB, bioC, bioD and dap, lys, phe and thr probes and GAPDH and $\beta$-actin probes are used.
+In the above examples, the data given as input is of class
+\Robject{AffyBatch} object. An \Robject{YAQCStats} object can also be
+created by providing an \Robject{ExpressionSet}, in which case some of
+the qc metrics cannot be computed: only the intensity values for the
+bioB, bioC, bioD and dap, lys, phe and thr probes and GAPDH and
+$\beta$-actin probes are used.
 
 \section{Quality Control Analysis}\label{sec:qcanalysis} 
 
-The quality metrics in the \Robject{YAQCStats} object can be plotted out to allow an easy and rapid overview, as shown on figure \ref{fig:yaqc}:
+The quality metrics in the \Robject{YAQCStats} object can be plotted
+out to allow an easy and rapid overview, as shown on figure
+\ref{fig:yaqc}:
 \begin{itemize}
-\item the scale factors for the different arrays are plotted with the upper and lower limits as a dotchart;
-\item boxplots for the average background and noise, the percentage of present calls and GAPDH and $\beta$-actin $\frac{3'}{5'}$ ratios.
-\item boxplots of the control probes \textit{biob}, \textit{bioc}, \textit{biod} and \textit{dap}, \textit{thr}, \textit{phe}, \textit{lys} intensities respectively
+\item the scale factors for the different arrays are plotted with the
+  upper and lower limits as a dotchart;
+\item boxplots for the average background and noise, the percentage of
+  present calls and GAPDH and $\beta$-actin $\frac{3'}{5'}$ ratios.
+\item boxplots of the control probes \textit{biob}, \textit{bioc},
+  \textit{biod} and \textit{dap}, \textit{thr}, \textit{phe},
+  \textit{lys} intensities respectively
 \end{itemize}
 
-The mean (longdashed line), upper and lower 2 standard deviations (dotted lines) are also plotted on the graphs. The upper and lower limits may however not appear when they are outside of the boxplot y-axis. For the internal probes, a grey rectangle represents the mean (middle segment) and the +/- 2 stdev range.
+The mean (longdashed line), upper and lower 2 standard deviations
+(dotted lines) are also plotted on the graphs. The upper and lower
+limits may however not appear when they are outside of the boxplot
+y-axis. For the internal probes, a grey rectangle represents the mean
+(middle segment) and the +/- 2 stdev range.
 
 
 \begin{figure}
@@ -145,35 +290,72 @@ plot(yqc)
 \end{figure}
 
 
-The outliers (i.e. the data points the lie outside the mean +/- 2 stdev) can be queried and listed for each qc metrics using the \Rfunction{getOutliers()} function. The arguments are the \Robject{YAQCStats} object and a string describing the metrics that should be queried. In the above example, we can see that the scale factors of the fourth samples (counting from the botton) is out of range and not even present on the dotchart. We can retrieve the name of the sample and its scale factor value by typing:
+The outliers (i.e. the data points the lie outside the mean +/- 2
+stdev) can be queried and listed for each qc metrics using the
+\Rfunction{getOutliers()} function. The arguments are the
+\Robject{YAQCStats} object and a string describing the metrics that
+should be queried. In the above example, we can see that the scale
+factors of the fourth samples (counting from the botton) is out of
+range and not even present on the dotchart. We can retrieve the name
+of the sample and its scale factor value by typing:
 
 <<label=outlier>>=
 getOutliers(yqc,"sfs")
 @
 
-The qc metrics strings are respectively sfs, avbg, avns, pp, actin, gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of apperance on the qc plot). Individual plots can also be generated with the \texttt{which} argument: 'sfs' for the scale factor, 'avbg' and 'avns' for the average background and noise, 'pp' for the percentage of present calls, 'gapdh' and 'actin' for the GAPDH and $\beta$-actin ratios, 'bio' for the hybridization controls and 'spikes' for the retro-transciption spiked controls. In addition, the coefficient of variation is calculated for each qc metric and indicated on the qc plot. The outliers can be summerized in a data frame calling the \Rfunction{summary()} function on a \Robject{YAQCStats} object.
+The qc metrics strings are respectively sfs, avbg, avns, pp, actin,
+gapdh, biob, bioc, biod, dap, thr, phe, lys (listed in their order of
+apperance on the qc plot). Individual plots can also be generated with
+the \texttt{which} argument: 'sfs' for the scale factor, 'avbg' and
+'avns' for the average background and noise, 'pp' for the percentage
+of present calls, 'gapdh' and 'actin' for the GAPDH and $\beta$-actin
+ratios, 'bio' for the hybridization controls and 'spikes' for the
+retro-transciption spiked controls. In addition, the coefficient of
+variation is calculated for each qc metric and indicated on the qc
+plot. The outliers can be summerized in a data frame calling the
+\Rfunction{summary()} function on a \Robject{YAQCStats} object.
 
 \bigskip
 
-It is also possible to combine two \Robject{YAQCStats} object into one with the \Rfunction{merge()} function. To illustration this function, we will use the \Rfunction{arrays()} function that outputs the arrays names of the \Robject{YAQCStats} provided as parameter.
+It is also possible to combine two \Robject{YAQCStats} object into one
+with the \Rfunction{merge()} function. To illustration this function,
+we will use the \Rfunction{arrays()} function that outputs the arrays
+names of the \Robject{YAQCStats} provided as parameter.
 
 <<label=merge>>=
-yqc2<-yaqc(Dilution[,2:3])
+yqc2 <- yaqc(Dilution[, 2:3])
 arrays(yqc) 
 arrays(yqc2)
-yqc3<-merge(yqc,yqc2)
+yqc3 <- merge(yqc, yqc2)
 arrays(yqc3)
 @
 
 \section{Generating ones own Control Probes Object}\label{sec:gui}
 
-As already mentionned, the control probes are selected automatically. The selection is done based on patterns in the Affymetrix probe names. When possible, the \textit{r2} probes are used . If these are not available (for instance in older arrays), the non-\textit{r2} are used and a warning message is issued. 
+As already mentionned, the control probes are selected
+automatically. The selection is done based on patterns in the
+Affymetrix probe names. When possible, the \textit{r2} probes are
+used. If these are not available (for instance in older arrays), the
+non-\textit{r2} are used and a warning message is issued.
 
-Sometimes, several probes can match a given pattern. In this case, a warning is issued but only the first probe is retained. All the probes that matched the pattern are given as part as the warning message. If the first probe is not the best one or if it does not match with the other probes of the group, the user is invited to created his/her own control probes.
+Sometimes, several probes can match a given pattern. In this case, a
+warning is issued but only the first probe is retained. All the probes
+that matched the pattern are given as part as the warning message. If
+the first probe is not the best one or if it does not match with the
+other probes of the group, the user is invited to created his/her own
+control probes.
 
 If no probes match the pattern, an error is issued and the function exits.
 
-The probes can be selected trough a graphical user interface that is started with the \Rfunction(probeSelectionInterface) function. This function requires a \Robject{AffyBatch} (or \Robject{ExpressionSet}) object as parameter. An additionnal logical parameter \Robject{filter} (which is by default set to TRUE) controls if the control probes can be selected from all the probes on the GeneChip or if a pre-filtering is done. This filtering removes the probes that are explicitely non-control features and groups the hybridization and labeling probes accordingly. 
+The probes can be selected trough a graphical user interface that is
+started with the \Rfunction(probeSelectionInterface) function. This
+function requires a \Robject{AffyBatch} (or \Robject{ExpressionSet})
+object as parameter. An additionnal logical parameter \Robject{filter}
+(which is by default set to TRUE) controls if the control probes can
+be selected from all the probes on the GeneChip or if a pre-filtering
+is done. This filtering removes the probes that are explicitely
+non-control features and groups the hybridization and labeling probes
+accordingly.
 
 \begin{figure}
 \begin{center}
@@ -184,25 +366,54 @@ The probes can be selected trough a graphical user interface that is started wit
 \end{figure}
 
 
-A tabbed window (see figure \ref{fig:screenshot}) opens up. Note that the probe selection is saved as an \Robject{yaqcControlProbes} object in the global environment once the window is closed. It is names \textit{yaqcControlProbes} by default. The name of the output can be set with the \Robject{returnVar} parameter. If an object named \textit{yaqccontrolProbes} alredy exists, the warning is issued in a new window and the user can cancel the operation to avoid to overwrite it existing object.
+A tabbed window (see figure \ref{fig:screenshot}) opens up. Note that
+the probe selection is saved as an \Robject{yaqcControlProbes} object
+in the global environment once the window is closed. It is names
+\textit{yaqcControlProbes} by default. The name of the output can be
+set with the \Robject{returnVar} parameter. If an object named
+\textit{yaqccontrolProbes} alredy exists, the warning is issued in a
+new window and the user can cancel the operation to avoid to overwrite
+it existing object.
 
-The tabs correspond to the three classes of control probes that can be defined. The \textit{hybridization} tab has 7 drop-down menues, for the three BioB probes (5', M and 3'), the two BioC probes (5' and 3') and the two BioD probes (5' and 3'). The \textit{labeling} tab has 12 drop-down menues, for the dap, thr, phe and lys 3', M and 5' probes respectively. The \textit{degradation} tab has 6 drop-down menues, for the beta-actin and GAPDH 3', M and 5' probes respectively. 
+The tabs correspond to the three classes of control probes that can be
+defined. The \textit{hybridization} tab has 7 drop-down menues, for
+the three BioB probes (5', M and 3'), the two BioC probes (5' and 3')
+and the two BioD probes (5' and 3'). The \textit{labeling} tab has 12
+drop-down menues, for the dap, thr, phe and lys 3', M and 5' probes
+respectively. The \textit{degradation} tab has 6 drop-down menues, for
+the beta-actin and GAPDH 3', M and 5' probes respectively.
 
-For some arrays, other probe sets than beta-actin and GAPDH are used for degradation control. These other genes will be present in the list (even when filtering is used). 
+For some arrays, other probe sets than beta-actin and GAPDH are used
+for degradation control. These other genes will be present in the list
+(even when filtering is used).
 
-Once the probes are selected, an \Robject{YaqcControlProbes} object (named as defined by returnVar, see above) is saved in the global environment when pressing \texttt{Ok}. No object is saved if the \texttt{Close} is pressed. 
+Once the probes are selected, an \Robject{YaqcControlProbes} object
+(named as defined by returnVar, see above) is saved in the global
+environment when pressing \texttt{Ok}. No object is saved if the
+\texttt{Close} is pressed.
 
-Note that the validity of any \Robject{YaqcControlProbes} object is checked before it is generated. Among the validity requirements of this class, there are constrains on the probe names, which must not contain white spaces. As such, all the probes must be properly selected from the drop-down menues. If not, an 'Error in validObject(.Object)' will be issued.
+Note that the validity of any \Robject{YaqcControlProbes} object is
+checked before it is generated. Among the validity requirements of
+this class, there are constrains on the probe names, which must not
+contain white spaces. As such, all the probes must be properly
+selected from the drop-down menues. If not, an 'Error in
+validObject(.Object)' will be issued.
 
-This object can then be used to generate an \Robject{YAQCStats} object as descrined in section \ref{sec:qcdata}, by adding it as a parameter to the \Rfunction{yaqc} function as shown below.
+This object can then be used to generate an \Robject{YAQCStats} object
+as descrined in section \ref{sec:qcdata}, by adding it as a parameter
+to the \Rfunction{yaqc} function as shown below.
 
 <<label=myyaqccontolprobes,eval=FALSE>>=
-yqc <- yaqc(myAffyData,myYaqcControlProbes="yaqcControlProbes")
+yqc <- yaqc(myAffyData, myYaqcControlProbes = yaqcControlProbes)
 @ 
 
 \section{Human genome U133 Plus 2.0 Reproducibility}\label{sec:reprod} 
 
-To illustrate this section, we will compare the first array of the RNA B reference dataset (\Robject{AFX\_1\_B1.CEL}) to the RNA A reference dataset\footnote{Note that the reproducibility statistics will \textit{de facto} be low, as the conditions to be compared are different.}. 
+To illustrate this section, we will compare the first array of the RNA
+B reference dataset (\Robject{AFX\_1\_B1.CEL}) to the RNA A reference
+dataset\footnote{Note that the reproducibility statistics will
+  \textit{de facto} be low, as the conditions to be compared are
+  different.}.
 
 <<label=maqcsubsetafx>>=
 library(MAQCsubsetAFX)
@@ -211,25 +422,46 @@ d <- refB[,1]
 sampleNames(d)
 @
 
-We will compare this CEL file to the \Robject{refA} dataset using the \Rfunction{reprodPlot} function. The name of the \Robject{AffyBatch} object to be tested is given as first argument and the reference data is specified as a character provided as second parameter (respectively \texttt{"refA"}, \texttt{"refB"}, \texttt{"refC"} or \texttt{"refD"}). The reference dataset is automatically loaded and merged with the user's \Robject{AffyBatch} object, normalized and results are plotted. The intensities used for the statistics are normalized using the RMA algorithm implemented in the \Rpackage{affy} package (\texttt{normalize="rma"}, default). It is also possible the use GCRMA (as implemented in the \Rpackage{gcrma} package, \texttt{normalize="gcrma"}), MAS5 (as implemented in \Rpackage{affy}, \texttt{normalize="mas5"})) or no normalization (\texttt{normalize="none"}).
+We will compare this CEL file to the \Robject{refA} dataset using the
+\Rfunction{reprodPlot} function. The name of the \Robject{AffyBatch}
+object to be tested is given as first argument and the reference data
+is specified as a character provided as second parameter (respectively
+\texttt{"refA"}, \texttt{"refB"}, \texttt{"refC"} or
+\texttt{"refD"}). The reference dataset is automatically loaded and
+merged with the user's \Robject{AffyBatch} object, normalized and
+results are plotted. The intensities used for the statistics are
+normalized using the RMA algorithm implemented in the \Rpackage{affy}
+package (\texttt{normalize="rma"}, default). It is also possible the
+use GCRMA (as implemented in the \Rpackage{gcrma} package,
+\texttt{normalize="gcrma"}), MAS5 (as implemented in \Rpackage{affy},
+\texttt{normalize="mas5"})) or no normalization
+(\texttt{normalize="none"}).
 
-The \Rfunction{reprodPlot} function draws a 6 by 6 matrix showing scatterplots (below the diagonal) and the Pearson correlation factors (above the diagonal) for all comparisons. The sample names are given on the diagonal. The gray lines on the scatterplots represent respectively 2, 4 and 8 fold change differences. 
+The \Rfunction{reprodPlot} function draws a 6 by 6 matrix showing
+scatterplots (below the diagonal) and the Pearson correlation factors
+(above the diagonal) for all comparisons. The sample names are given
+on the diagonal. The gray lines on the scatterplots represent
+respectively 2, 4 and 8 fold change differences.
 
 <<label=reprodplot,eval=FALSE>>=
- reprodPlot(d,"refA",normalize="rma")
+reprodPlot(d, "refA", normalize="rma")
 @
 
-The figure below is an example of the \Rfunction{reprodPlot} for 2 unnormalized samples \footnote{This \texttt{test} plot is used instead of the 6 by 6 plot to reduce time and size requirements to build the vignette.}. 
+The figure below is an example of the \Rfunction{reprodPlot} for 2
+unnormalized samples \footnote{This \texttt{test} plot is used instead
+  of the 6 by 6 plot to reduce time and size requirements to build the
+  vignette.}.
 
 \begin{center}
 <<label=reprodplorFig,fig=TRUE,echo=TRUE>>=
-reprodPlot(d,"test",normalize="none")
+reprodPlot(d, "test", normalize="none")
 @
 \end{center}
 
 \section{Acknowledgements}\label{sec:acknowledgements}
 
-This package has initially been developped at DNAVision in collaboration with Jean-Francois Laes.
+This package has initially been developped at DNAVision in
+collaboration with Jean-Francois Laes.
 
 \section{Session information}\label{sec:sessionInfo} 
 
