@@ -1,0 +1,40 @@
+##importFrom("graphics", "plot", "smoothScatter")
+importFrom(stats4, plot)
+import(methods)
+import(simpleaffy)
+
+exportClasses("YAQCStats",
+              "YaqcControlProbes",
+              "YaqcBioProbes",
+              "YaqcSpkProbes",
+              "YaqcDegProbes")
+
+exportMethods("avns",
+              "bioCalls",
+              "gcosProbes",
+              "moreSpikeInProbes",
+              "isLog",
+              "arrays",
+              "plot",
+              "show",
+              "yaqc",
+              "merge",
+              "summary",
+              "objectVersion")
+
+
+exportMethods("getYaqcControlProbes",
+              "info",
+              "info<-",
+              "bio",
+              "spk",
+              "deg")
+
+export(getSpikeProbes,
+       getBioProbes,
+       getRatioProbes,
+       getQCRatios,
+       getAllInt,
+       probeSelectionInterface,
+       reprodPlot,
+       getOutliers)
