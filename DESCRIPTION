@@ -1,4 +1,4 @@
-Package: yaqcaffy
+Package: yaqcaffy    
 Title: Affymetrix expression data quality control and reproducibility analysis
 Version: 1.27.0
 Author: Laurent Gatto
